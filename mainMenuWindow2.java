@@ -66,7 +66,13 @@ public class mainMenuWindow2 {
 		frame.setSize(600, 300);
 		music();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//Draw Tank
+		TPanel tankImage = new TPanel();
+		frame.add(tankImage);
+		tankImage.setVisible(true);
 		
+
 		
 
 	}
@@ -119,3 +125,26 @@ class credAction implements ActionListener {
 	
 	
 }
+
+class TPanel extends JPanel {
+    public TPanel(){
+	setPreferredSize(new Dimension(500,500));
+    }
+
+    @Override    
+    public void paintComponent(Graphics t) {
+
+	int xCord = 350;
+	int yCord = 200;
+	int radius = 30;
+
+	super.paintComponent(t);
+	t.drawRect(xCord,yCord - (radius / 2),(4 * radius),radius);
+	t.drawOval(xCord,yCord,radius,radius);
+	t.drawOval(xCord + radius,yCord,radius,radius);
+	t.drawOval(xCord + (2 * radius),yCord,radius,radius);
+	t.drawOval(xCord + (3 * radius),yCord,radius,radius);
+
+		
+    }}
+
