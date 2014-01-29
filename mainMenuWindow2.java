@@ -33,8 +33,8 @@ public class mainMenuWindow2 {
 	
 	public static void main(String[] args) {
 		
-		//New Window Creation
-		JFrame frame = new JFrame("Tanks!!");
+	        //New Window Creation
+	        JFrame frame = new JFrame("Tanks!!");
 		JLabel titleLabel = new JLabel("Welcome to Tanks!!!");
 		
 		//"Play" Button
@@ -68,9 +68,17 @@ public class mainMenuWindow2 {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//Draw Tank
-		TPanel tankImage = new TPanel();
-		frame.add(tankImage);
+		String color = "black";
+		
+		JPanel tankColorPanel = new JPanel();
+		
+		TPanel tankImage = new TPanel(color);
+		tankColorPanel.add(tankImage);
+		frame.add(tankColorPanel);
 		tankImage.setVisible(true);
+
+
+		
 		
 
 		
@@ -127,23 +135,30 @@ class credAction implements ActionListener {
 }
 
 class TPanel extends JPanel {
-    public TPanel(){
+    public TPanel(String color){
+	System.out.println("The Color of the tank will be: " + color);
 	setPreferredSize(new Dimension(500,500));
     }
 
     @Override    
     public void paintComponent(Graphics t) {
 
-	int xCord = 350;
-	int yCord = 200;
+	int xCord = 250;
+	int yCord = 150;
 	int radius = 30;
 
 	super.paintComponent(t);
-	t.drawRect(xCord,yCord - (radius / 2),(4 * radius),radius);
-	t.drawOval(xCord,yCord,radius,radius);
-	t.drawOval(xCord + radius,yCord,radius,radius);
-	t.drawOval(xCord + (2 * radius),yCord,radius,radius);
-	t.drawOval(xCord + (3 * radius),yCord,radius,radius);
+	t.fillRect(xCord,yCord - (radius / 6) + 5,(4 * radius),radius /2);
+	//t.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+	t.fillRoundRect(xCord, yCord - (radius/2), 4 * radius, radius, 40, 40 );
+	t.fillOval(xCord,yCord,radius,radius);
+	t.fillOval(xCord + radius,yCord,radius,radius);
+	t.fillOval(xCord + (2 * radius),yCord,radius,radius);
+	t.fillOval(xCord + (3 * radius),yCord,radius,radius);
+	t.drawRect(xCord + (radius/2), yCord + (radius/2), 3 * radius, radius/2);
+	//t.drawOval(x, y, width, height);
+	t.fillOval(xCord + (radius), yCord - (3* radius)/2, 2 * radius,  2 *radius);
+	t.fillRoundRect(xCord - radius, yCord - (3 * radius)/2, (3 * radius) + (radius / 4) , radius / 3,20,20);
 
 		
     }}
