@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import javax.sound.sampled.*;
-
+import java.util.Scanner;
 
 
 
@@ -68,14 +68,14 @@ public class mainMenuWindow2 {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//Draw Tank
-		String color = "black";
+		/*int color = 0;
 		
 		JPanel tankColorPanel = new JPanel();
 		
 		TPanel tankImage = new TPanel(color);
 		tankColorPanel.add(tankImage);
 		frame.add(tankColorPanel);
-		tankImage.setVisible(true);
+		tankImage.setVisible(true);*/
 
 
 		
@@ -90,13 +90,24 @@ public class mainMenuWindow2 {
 class playAction implements ActionListener {
 	public void actionPerformed (ActionEvent e) {
 		JFrame playFrame = new JFrame("Game");
-		playFrame.setSize(300, 150);
+		playFrame.setSize(500, 250);
 		JLabel label = new JLabel("This is where you select your char");
 		JPanel panel = new JPanel();
 		playFrame.add(panel);
 		panel.add(label);
 		
 		playFrame.setVisible(true);
+
+		int color = 0;
+		JPanel tankColorPanel = new JPanel();
+		
+		TPanel tankImage = new TPanel(color);
+		tankColorPanel.add(tankImage);
+		panel.add(tankColorPanel);
+		tankImage.setVisible(true);
+
+
+
 	}
 }
 
@@ -135,28 +146,36 @@ class credAction implements ActionListener {
 }
 
 class TPanel extends JPanel {
-    public TPanel(String color){
+    public TPanel(int color){
 	System.out.println("The Color of the tank will be: " + color);
-	setPreferredSize(new Dimension(500,500));
+	setPreferredSize(new Dimension(500,250));
     }
 
     @Override    
     public void paintComponent(Graphics t) {
 
-	int xCord = 250;
-	int yCord = 150;
+	int xCord = 200;
+	int yCord = 70;
 	int radius = 30;
 
 	super.paintComponent(t);
-	t.fillRect(xCord,yCord - (radius / 6) + 5,(4 * radius),radius /2);
+	//drawRect(x,y,width,height)
+	//drawOval(x,y,width,height)
 	//t.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+
+	// middle of tank
+	t.fillRect(xCord,yCord - (radius / 6) + 5,(4 * radius),radius /2);
 	t.fillRoundRect(xCord, yCord - (radius/2), 4 * radius, radius, 40, 40 );
+	
+	// the wheels of the tank
 	t.fillOval(xCord,yCord,radius,radius);
 	t.fillOval(xCord + radius,yCord,radius,radius);
 	t.fillOval(xCord + (2 * radius),yCord,radius,radius);
 	t.fillOval(xCord + (3 * radius),yCord,radius,radius);
+	
+	//the line at the bottom
 	t.drawRect(xCord + (radius/2), yCord + (radius/2), 3 * radius, radius/2);
-	//t.drawOval(x, y, width, height);
+	// the top part of the tank
 	t.fillOval(xCord + (radius), yCord - (3* radius)/2, 2 * radius,  2 *radius);
 	t.fillRoundRect(xCord - radius, yCord - (3 * radius)/2, (3 * radius) + (radius / 4) , radius / 3,20,20);
 
