@@ -8,88 +8,94 @@ import java.lang.Integer;
 import java.util.ArrayList;
 
 class ColorWithString{
-    private Color thisColor;
-    private String thisString;
-    ColorWithString(){}
-    ColorWithString(String randomColors){setColor(getRandomColor()); setString(randomColors);}
+    private Color color;                             // color,   private
+    private String name;                             // name,    private
 
-    public Color getColor(){ return thisColor; }
-    public void setColor(Color c){ thisColor = c; }
+    ColorWithString(){                               // Default Constructor
+	setName("Black");                            //    Set name to Black
+	setColor(Color.BLACK);                       //    Set color to Black
+ }                    
 
-    public String getString(){ return thisString; }
-    public void setString(String s){ thisString = s; }
+    ColorWithString(String s, Color c){              // 2 Arg Constructor
+	setName(s);                                  //    Set name from Arg 0  
+   	setColor(c);                                 //    Set color from Arg 1
+ }
+ 
+    public Color getColor(){ return color; }         // Returns color
+    public void setColor(Color c){ color = c; }      // Sets color
 
-    public Color getRandomColor(){
-	int r,g,b;
-	r = (int) (Math.random() * 255);
-	g = (int) (Math.random() * 255);
+    public String getName(){ return name; }          // Returns name
+    public void setName(String s){ name = s; }       // Sets name
+
+    public void setRandomColor(){                    // Creates a random Color 
+	int r,g,b;       
+	r = (int) (Math.random() * 255);             // Gets random number from 0 to 255
+	g = (int) (Math.random() * 255);             //    for each rgb
 	b = (int) (Math.random() * 255);
-	return (new Color(r,g,b));
-
-
+	setColor(new Color(r,g,b));                  // Sets the random color
     }
     
-    @Override
-    public String toString(){
-	return( this.getString() );
+    @Override                                        // Overrides toString method
+    public String toString(){                        // Returns the name instead of default
+	return( this.getName() );                    // which returned r=, g= ,b=
     }
 }
 
 class Tank{
-    private Color tankColor = Color.BLACK;
+    private Color tankColor;                             // tankColor, private
+    private ArrayList <ColorWithString> colorList;       // colorList, private ArrayList
     
-    public Color getTankColor(){
-        return tankColor;
-    }
-    public void setTankColor(Color c){
-	tankColor = c;
-    }
 
+    Tank(){                                              // Default Constructor
+	setTankColor(Color.BLACK);                       //    Set tankColor to Black
+	createArrayListOfColors();
+    }                
     
-    public Color askForTankColor(){
-	ArrayList <ColorWithString> colorList = new ArrayList<ColorWithString>(); {}
-	ColorWithString cBlack = new ColorWithString();
-	cBlack.setColor(Color.BLACK);
-	cBlack.setString("Black");
-	colorList.add(cBlack);
+    public Color getTankColor(){ return tankColor; }     // Returns tankColor
+    public void setTankColor(Color c){ tankColor = c; }  // Sets tankColor
+    
+    public ArrayList createArrayListOfColors(){          // Creates ArrayList of 
+	colorList = new ArrayList<ColorWithString>();    //    type ColorWithString
 	
-	ColorWithString cRed = new ColorWithString();
-	cRed.setColor(Color.RED);
-	cRed.setString("RED");
+	// Creates 5 new colors and puts them in colorList ArrayList
+	ColorWithString cBlack = new ColorWithString("Black", Color.BLACK); // Black
+	colorList.add(cBlack);
+	ColorWithString cRed = new ColorWithString("Red", Color.RED);       // Red
 	colorList.add(cRed);
-
-	ColorWithString cGreen = new ColorWithString();	
-	cGreen.setColor(Color.GREEN);
-	cGreen.setString("GREEN");
+	ColorWithString cGreen = new ColorWithString("Green", Color.GREEN); // Green	
 	colorList.add(cGreen);
-
-	ColorWithString cBlue = new ColorWithString();	
-	cBlue.setColor(Color.BLUE);
-	cBlue.setString("BLUE");
+	ColorWithString cBlue = new ColorWithString("Blue", Color.BLUE);    // Blue
 	colorList.add(cBlue);
-
-	ColorWithString cPink = new ColorWithString();	
-	cPink.setColor(Color.PINK);
-	cPink.setString("PINK");
+	ColorWithString cPink = new ColorWithString("Pink", Color.PINK);    // Pink
 	colorList.add(cPink);
 	
-	ColorWithString cRandom = new ColorWithString("Random");	
-	cRandom.setString("RANDOM");
-	colorList.add(cRandom);
-
-	int i;
-	System.out.println("Choose The Color Of Your Tank!");
-	for( i = 0; i < colorList.size() ; i++)
-	    {
-		System.out.println(i + ".  " + colorList.get(i).toString());
-	    }
-
-	Scanner readInput = new Scanner(System.in);
-	int input = readInput.nextInt();
+	// Creates a Random color and puts in colorList ArrayList
+	ColorWithString cRandom = new ColorWithString();               // Random
+	cRandom.setName("RANDOM");                                     // set name to Random
+	cRandom.setRandomColor();                                      // Set Random Color
+	colorList.add(cRandom);                                        // Add to colorList
 	
-	setTankColor(colorList.get(input).getColor());
+	return colorList;                               // Returns ArrayList colorList
+    }
 
-	return getTankColor(); 
+    public int getUserInput(){                          // Gets user input
+	Scanner readInput = new Scanner(System.in);        
+	int input = readInput.nextInt();                             // Converts input to Int
+	return input;                                   // Returns user input
+    }
+
+    public Color askForTankColor(){                     // Iterates colors and gets user input
+	int i;
+
+	System.out.println("Choose The Color Of Your Tank!");        // Prints Command
+	for( i = 0; i < colorList.size() ; i++){                     // Iterates though colorList
+		System.out.println(i + ".  " + colorList.get(i).toString());   // Prints Options
+	}
+	int input = getUserInput();
+	
+	setTankColor(colorList.get(input).getColor());               // Sets Color from Input
+ 
+	return getTankColor();                          // Returns the color chosen
     }
 }
 
@@ -147,8 +153,8 @@ public class mainMenuWindow2 {
 		
 		
 		//Frame creation
-		frame.setVisible(true);
 		frame.setSize(600, 300);
+		frame.setVisible(true);
 		music();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -171,7 +177,7 @@ class playAction implements ActionListener {
 		Tank firstTank = new Tank();
 		Color color;
 		color = Color.BLACK;
-		//color = firstTank.askForTankColor();
+		color = firstTank.askForTankColor();
 
 		JPanel tankColorPanel = new JPanel();
 		TPanel tankImage = new TPanel(color);
@@ -276,20 +282,7 @@ class TPanel extends JPanel {
 
 	int xCord = 200;
 	int yCord = 70;
-	int radius = 30;
-	//Color color = Color.BLACK;
-	/*switch (myColor){
-	case 0: color = Color.RED;
-	    break;
-	case 1: color = Color.GREEN;
-	    break;
-	case 2: color = Color.BLUE;
-	    break;
-	default: color = Color.BLACK;
-	break;
-	}*/
-	
-	    
+	int radius = 30;   
 
 	super.paintComponent(t);
 	//drawRect(x,y,width,height)
