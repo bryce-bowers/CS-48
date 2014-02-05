@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 
+
 public class move {
     public static void main(String[] args) throws Exception {
 	JFrame f = new JFrame();
@@ -8,6 +9,7 @@ public class move {
 	f.setVisible(true);
 	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	f.setSize(800,600);
-
-    }
+    }    
 }
+
+
