@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 
-private class credAction implements ActionListener {
+public class credAction implements ActionListener {
 	public void actionPerformed (ActionEvent e) {
 		JFrame credFrame = new JFrame("Credits");
 		credFrame.setSize(300,150);

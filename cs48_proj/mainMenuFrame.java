@@ -44,7 +44,7 @@ public class mainMenuFrame {
 		
 		
 		//Frame creation
-		frame.setVisible(true);
+		frame.setVisible(false);
 		frame.setSize(541, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

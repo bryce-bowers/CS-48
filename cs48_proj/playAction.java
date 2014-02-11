@@ -1,8 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*
+import javax.swing.*;
 
-private class playAction implements ActionListener {
+public class playAction implements ActionListener {
 	public void actionPerformed (ActionEvent e) {
 		JFrame playFrame = new JFrame("Game");
 		playFrame.setSize(300, 150);

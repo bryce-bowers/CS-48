@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-private class htpAction implements ActionListener {
+public class htpAction implements ActionListener {
 	public void actionPerformed (ActionEvent e) {
 		JFrame htpFrame = new JFrame("How to Play");
 		htpFrame.setSize(300, 150);
