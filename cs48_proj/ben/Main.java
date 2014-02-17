@@ -5,6 +5,6 @@ import javax.swing.*;
 public class Main{
     public static void main(String[] args)
     {
-	MainMenu mm = new MainMenu();
+	MainMenu mm = new MainMenu();  // Calls the Main Menu to be created
     }
 }
