@@ -2,8 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
-public class keyMovement2 implements ActionListener, KeyListener {
+public class keyMovement2 implements ActionListener, KeyListener{
     private final double xGround = 0; double yGround = 600;
     private int tShift = 200;                 // amount shifted of frame
     static int maxX = 700, maxY = 600;             // max frame size x and y
@@ -11,7 +15,9 @@ public class keyMovement2 implements ActionListener, KeyListener {
     private Color myColor = Color.BLACK;            // myColor
     static int size = 10;             // size of image
 	static int turn = 2;
-
+	
+	//public Image backgroundImage = initImage();
+	
 	Player p1;
 	Player p2;
 
@@ -21,11 +27,9 @@ public class keyMovement2 implements ActionListener, KeyListener {
 	return "(" + p.getX() + ", " + p.getY() + ")";       //     in a string
     }
 
-    //public static void main(String[] args)
-    //{
-    //	keyMovement2 km = new keyMovement2("a","b");
-    //}
-
+	
+	
+	
     public keyMovement2(String player1, String player2) {
 	p1 = new Player(player1, 50, 400, Color.RED);
 	p2 = new Player(player2, 400, 400, Color.BLUE);
@@ -104,15 +108,16 @@ public class keyMovement2 implements ActionListener, KeyListener {
 		public void paintComponent(Graphics g) {
 			//paintComponent draws things
 			super.paintComponent(g);       // runs super class, then this class
+			
+			///////////////////////////////////////////////////
+			//g.drawImage(backgroundImage, 0, 0, this);
+			///////////////////////////////////////////////////
+			
 			Graphics2D d = (Graphics2D) g;
 			double x = 0;
 			double y = 0;
 			String name = "";
-			///////////////////////////////////////////////////
-			
-			
-			///////////////////////////////////////////////////
-			
+
 			for(int i = 1; i <= 2; i++)
 			{
 
@@ -149,6 +154,7 @@ public class keyMovement2 implements ActionListener, KeyListener {
 				
 				// the top part of the tank
 				d.fillOval((int)x - size,(int)y, 2 * size, 2 *size);
+				
 				
 				d.drawString(name, (int)x - 7*(name.length() / 2), (int)(y + (size * 4))); 
 						
