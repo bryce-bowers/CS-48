@@ -1,18 +1,22 @@
+import java.awt.*;
+import javax.swing.*;
+
 public class Player{
 
 	static int playerCount;
-	private String name;
+	public String name;
 	private int playerNumber;
 	private int health;
 	private int fuel;
-	//public Color color;
+	public Color color;
 	public double x, y;
 	public double degree = 90;
 	
-	public Player(String s, double newX, double newY){
+	public Player(String s, double newX, double newY, Color c){
 		name = s;
 		x = newX;
 		y = newY;
+		color = c;
 	}
 	
 	public double getX(){ return x; }
@@ -28,8 +32,8 @@ public class Player{
 	
 	public void setY(double newY){
 		//System.out.println("new y = 10 * Math.sin(.1 * x)   ==> " + 10 * Math.sin(.05 * x));
-		y =  400 - 10 * Math.sin(.05 * x);
-	 	//y = newY;
+		//y =  400 - 10 * Math.sin(.05 * x);
+	 	y = newY;
 	}
 	
 	public void setDegree(double newDeg){
