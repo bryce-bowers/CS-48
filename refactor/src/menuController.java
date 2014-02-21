@@ -110,7 +110,8 @@ public class menuController implements ActionListener {
     }
 
     public void bringUpGame() throws IOException {
-	gameScreen newGame = new gameScreen(p1Name.getText(),p2Name.getText());
+	gameScreen newGame = new gameScreen(p1Name.getText(), tank1.getTheColor(),
+					    p2Name.getText(), tank2.getTheColor());
     }
 
 

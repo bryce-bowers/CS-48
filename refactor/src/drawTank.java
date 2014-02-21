@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.event.*;
 public class drawTank extends JPanel implements ActionListener {
 	private int color;
+    private Color c;
 	private JRadioButton black;
 	private JRadioButton blue;
 	private JRadioButton green;
@@ -40,6 +41,9 @@ public class drawTank extends JPanel implements ActionListener {
 	}
 	
 	public int getColor() { return color; }
+
+    public Color getTheColor() { return c; }
+    public void setTheColor(Color cc) { c = cc; }
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == black) {
@@ -75,16 +79,27 @@ public class drawTank extends JPanel implements ActionListener {
         //drawOval(x,y,width,height)                                                                                                                  
         //t.drawRoundRect(x, y, width, height, arcWidth, arcHeight)                                                                                   
         if(getColor() == 0)
-            t.setColor(Color.BLACK);
+	    {
+		setTheColor(Color.BLACK);
+	    }
         if(getColor() == 1)
-            t.setColor(Color.BLUE);
+	    {        
+		setTheColor(Color.BLUE);
+	    }
         if(getColor() == 2)
-            t.setColor(Color.GREEN);
-        if(getColor() == 3)
-        	t.setColor(Color.YELLOW);
-        if(getColor() == 4)
-        	t.setColor(Color.RED);
-        // middle of tank                                                                                                                             
+	    {
+		setTheColor(Color.GREEN);
+       	    }
+	if(getColor() == 3)
+	    {
+		setTheColor(Color.YELLOW);
+       	    }
+	if(getColor() == 4)
+	    {
+		setTheColor(Color.RED);
+	    }
+	t.setColor(c);
+	// middle of tank                                                                                                                             
         t.fillRect(xCord,yCord - (radius / 6) + 5,(4 * radius),radius /2);
         t.fillRoundRect(xCord, yCord - (radius/2), 4 * radius, radius, 40, 40 );
 

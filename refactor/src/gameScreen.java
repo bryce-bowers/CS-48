@@ -22,9 +22,9 @@ public class gameScreen implements ActionListener, KeyListener{
 
     static MyDrawPanel drawPanel;
 
-    public gameScreen(String player1, String player2) throws IOException {
-	p1 = new Player(player1, 55, 400, Color.RED);
-	p2 = new Player(player2, 400, 400, Color.BLUE);
+    public gameScreen(String player1, Color p1c, String player2, Color p2c) throws IOException {
+	p1 = new Player(player1, 55, 400, p1c);
+	p2 = new Player(player2, 400, 400, p2c);
 
 	JFrame jf = new JFrame("Test Tank Game");
 	drawPanel = new MyDrawPanel();
