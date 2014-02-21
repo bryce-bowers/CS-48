@@ -133,7 +133,7 @@ public class MainMenu extends JFrame implements ActionListener{
 	creditsPanel.add(tankPanel);      // Adds tank Image to Panel
     }
 
-    public void createPlayGameFrame()  // Opens tank movement on another Frame
+    public void createPlayGameFrame() throws IOException  // Opens tank movement on another Frame
     {   // Initializes keyMovement class, which has tank Movement
 	keyMovement2 km = new keyMovement2(player1,player2); // (String, String)
 	//playFrame = new JFrame("Play Game"); // Title of Frame
@@ -167,7 +167,7 @@ public class MainMenu extends JFrame implements ActionListener{
 	}catch(NullPointerException nex){}
     }
     
-    public void decideNextFrame(String s){
+    public void decideNextFrame(String s) {
 	disposeAllFrames();
 	
 	if(s.equals("charSelect1"))
@@ -186,7 +186,9 @@ public class MainMenu extends JFrame implements ActionListener{
 		j.setText("");
 		System.out.println("\n\nPlayer 1's name is " + player1);
 		System.out.println("Player 2's name is " + player2 + "\n\n");
+		try{
 		createPlayGameFrame();
+		}catch(IOException e){};
 	    }	
 	else if(s.equals("howToPlay"))
 	    {

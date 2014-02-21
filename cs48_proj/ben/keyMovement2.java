@@ -8,30 +8,27 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class keyMovement2 implements ActionListener, KeyListener{
+
     private final double xGround = 0; double yGround = 600;
     private int tShift = 200;                 // amount shifted of frame
     static int maxX = 700, maxY = 600;             // max frame size x and y
     private double velx = 0, vely = 0;              // start velx,  vely
     private Color myColor = Color.BLACK;            // myColor
     static int size = 10;             // size of image
-	static int turn = 2;
-	
-	//public Image backgroundImage = initImage();
-	
-	Player p1;
-	Player p2;
+    static int turn = 2;
+     
+    Player p1;
+    Player p2;
 
     static MyDrawPanel drawPanel;
 
     public String toString(Player p){                  // For Printing (x,y) location
 	return "(" + p.getX() + ", " + p.getY() + ")";       //     in a string
     }
-
 	
 	
-	
-    public keyMovement2(String player1, String player2) {
-	p1 = new Player(player1, 50, 400, Color.RED);
+    public keyMovement2(String player1, String player2) throws IOException {
+	p1 = new Player(player1, 55, 400, Color.RED);
 	p2 = new Player(player2, 400, 400, Color.BLUE);
 
 	JFrame jf = new JFrame("Test Tank Game");
@@ -39,11 +36,9 @@ public class keyMovement2 implements ActionListener, KeyListener{
 	jf.getContentPane().add(drawPanel);
 	jf.setSize(maxX,maxY);
 	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	jf.setVisible(true);
-
-
 	jf.addKeyListener(this);
 	jf.setFocusTraversalKeysEnabled(false);
+       	jf.setVisible(true);
     }
     
     public void actionPerformed(ActionEvent ae){}
@@ -104,13 +99,15 @@ public class keyMovement2 implements ActionListener, KeyListener{
     public void keyReleased(KeyEvent e) {}
 
     class MyDrawPanel extends JPanel {
-	
+
+	Image img = Toolkit.getDefaultToolkit().createImage("background.jpg");
+	int drawCounter = 0;
 		public void paintComponent(Graphics g) {
 			//paintComponent draws things
 			super.paintComponent(g);       // runs super class, then this class
 			
 			///////////////////////////////////////////////////
-			//g.drawImage(backgroundImage, 0, 0, this);
+			g.drawImage(img, 0, 0, null);
 			///////////////////////////////////////////////////
 			
 			Graphics2D d = (Graphics2D) g;
