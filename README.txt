@@ -2,10 +2,17 @@ Readme for Tanks!:
 
 
 To compile our program, navigate to the src directory and compile as
- "javac *.java"
+    "javac *.java"
 and use the "java Tanks" to run the program.
 
 There might be some issues with Mac computers, but the computer the verified to work with Windows computers. 
+ 
+To see a screen that shoots a projectile, it is in src and will run with
+    "java Test"
+You can add velocity and degrees after "java Test" and they are both doubles.
+
+ex. "java Test 100 20"
+The default values for the velocity is 80 and degrees is 45;
 
 
 --------------------
@@ -25,7 +32,6 @@ If you're player 2: Use WASD to move, and space bar to fire and swtich to player
 --------------------------------
 KNOWN BUGS:
 --Firing doesn't work, Return key/Space bar only switch turns right now.
---Color select doesn't work IN THE GAME SCREEN, player 1 defaults to red, player 2 defaults to blue
 --Stage select screen not implemented yet, gonna be with final project.
 --Background doesn't show up
 --Creating new windows doesn't close previous one, if you keep switching between play and main menu, you'll have an infinite number of windows
@@ -35,6 +41,7 @@ KNOWN BUGS:
 
 FEATURES:
 --Functional GUI from beginning to playScreen.
---Names get saved and are passed in game
---Turn based movement/angle adjustment works
---Color select works IN THE CHARACTER SELECT SCREEN.
+--Names get saved and are passed in game.
+--Turn based movement/angle adjustment works.
+--Color select works and gets passed into game.
+--
