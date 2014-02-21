@@ -1,7 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+import javax.imageio.ImageIO;
+import java.io.*;
 
 public class MainMenu extends JFrame implements ActionListener{
     String player1;                    // Where to store player 1's name
@@ -31,20 +32,24 @@ public class MainMenu extends JFrame implements ActionListener{
     JPanel charSelectPanel2 = new JPanel();    // User2 input Panel
     JPanel howToPlayPanel = new JPanel();      // How To Play Panel
     JPanel creditsPanel = new JPanel();        // Credits Panel
+	
+	//	Button panel creation for main menu - NICK
 
     JPanel tankPanel = new DrawTank(390,50,30,Color.BLUE);  // Tank Image
 
     JTextField j = new JTextField("");         // Blank for user input
 
-    MainMenu(){            // Default Constructor, No Args
+    MainMenu() throws IOException{            // Default Constructor, No Args
 	mainFrame = new JFrame("Tanks!!");     // Title of Main Frame
-	mainFrame.setSize(900,600);            // Size of Frame( width, height )
+	mainFrame.getContentPane().add(new JPanelWithBackground("mainPic.jpg")); // Background - NICK
+	mainFrame.add(mainPanel, BorderLayout.SOUTH);
+	mainFrame.setSize(541,600);            // Size of Frame( width, height )
 	mainFrame.setVisible(true);            // Setting Main Frame visible
 	mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// Close Window
 	setButtonsForMain();                   // Put Main Buttons on mainPanel
 	setActionListeners();                  // Makes Buttons Respond to click
 
-	mainFrame.add(mainPanel, BorderLayout.CENTER);// Puts Panel on mainFrame
+	//mainFrame.add(mainPanel, BorderLayout.CENTER);// Puts Panel on mainFrame
 
 	decideNextFrame("mainMenu");     // Decides what the next Frame will be
     }
@@ -83,11 +88,11 @@ public class MainMenu extends JFrame implements ActionListener{
 
     public void setButtonsForMain()     // Puts main menu buttons in mainPanel
     {                       // sets layout to be ( rows, columns, separation )
-	mainPanel.setLayout( new GridLayout(4,3,10,10) );
+	mainPanel.setLayout( new GridLayout(4,3,5,5) );
 	mainPanel.add(playBtn);  
 	mainPanel.add(htpBtn);
 	mainPanel.add(credBtn);
-	mainPanel.add(tankPanel);         // Adds tank Image to Panel
+	//mainPanel.add(tankPanel);         // Adds tank Image to Panel
     }
 
     public void setButtonsForCharacterSelect1()
@@ -128,7 +133,7 @@ public class MainMenu extends JFrame implements ActionListener{
 	creditsPanel.add(tankPanel);      // Adds tank Image to Panel
     }
 
-    public void createPlayGameFrame()  // Opens tank movement on another Frame
+    public void createPlayGameFrame() throws IOException  // Opens tank movement on another Frame
     {   // Initializes keyMovement class, which has tank Movement
 	keyMovement2 km = new keyMovement2(player1,player2); // (String, String)
 	//playFrame = new JFrame("Play Game"); // Title of Frame
@@ -162,7 +167,7 @@ public class MainMenu extends JFrame implements ActionListener{
 	}catch(NullPointerException nex){}
     }
     
-    public void decideNextFrame(String s){
+    public void decideNextFrame(String s) {
 	disposeAllFrames();
 	
 	if(s.equals("charSelect1"))
@@ -181,7 +186,9 @@ public class MainMenu extends JFrame implements ActionListener{
 		j.setText("");
 		System.out.println("\n\nPlayer 1's name is " + player1);
 		System.out.println("Player 2's name is " + player2 + "\n\n");
+		try{
 		createPlayGameFrame();
+		}catch(IOException e){};
 	    }	
 	else if(s.equals("howToPlay"))
 	    {
