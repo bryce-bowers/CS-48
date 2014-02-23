@@ -70,8 +70,8 @@ public class drawTank extends JPanel implements ActionListener {
 	}
 	
 	public void paintComponent(Graphics t) {
-        int xCord = 200;
-        int yCord = 70;
+        int xCord = 100;
+        int yCord = 150;
         int radius = 30;
 
         super.paintComponent(t);

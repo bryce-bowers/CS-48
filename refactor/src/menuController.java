@@ -9,12 +9,17 @@ import javax.sound.sampled.*;
 
 
 public class menuController implements ActionListener {
-    
+    playMenu gameConfig;
+    gameScreen newGame;
+    creditMenu credMenu;
+
     //main menu Panel
     private JButton playBtn = new JButton("Play!");
     private JButton htpBtn = new JButton("How to Play!");
     private JButton credBtn = new JButton("Credits!");
     private JPanel mainButtonPanel = new JPanel();
+    private JPanel creditsPanel = new JPanel();
+    private JPanel howToPlayPanel = new JPanel();
 
 
     //play menu Panel
@@ -33,10 +38,15 @@ public class menuController implements ActionListener {
     private void addToMainButtonPanel() {
 	
 	mainButtonPanel.add(playBtn);
+	playBtn.setFocusable( false );
 	playBtn.addActionListener(this);
+	
 	mainButtonPanel.add(htpBtn);
+	htpBtn.setFocusable( false );
 	htpBtn.addActionListener(this);
+	
 	mainButtonPanel.add(credBtn);
+	credBtn.setFocusable( false );
 	credBtn.addActionListener(this);
     }
 
@@ -55,29 +65,32 @@ public class menuController implements ActionListener {
 	if(e.getSource() == playBtn) {
 	    bringUpPlay();
 	}
-	if(e.getSource() == returnBtn) {
-	    try{
-	    bringUpBasic();
-	    }catch(IOException xe){};
+	else if(e.getSource() == returnBtn) {
+	    gameConfig.dispose();
 	}
-	if(e.getSource() == confirmBtn) {
-	    try{
-		bringUpGame();
-	    }catch(IOException xg){};
+	else if(e.getSource() == confirmBtn) {
+	    if( newGame == null )
+		{
+		    try{
+			bringUpGame();
+		    }catch(IOException xg){};
+		}
+	    gameConfig.dispose();
 	}
-	//if(e.getSource() == confirmBtn) {
-	//try{
-	//  bringUpEnviro();
-	// }catch(IOException xd){};
-	//}
-
+	else if ( e.getActionCommand().equals( "Credits!" ) )
+	    {
+		bringUpCredits();
+	    }
+	else if ( e.getActionCommand().equals( "How to Play!" ) )
+	    {
+		System.out.println( "Stub, Open How To Play window" );
+	    }
     }
 
-
-
-
-
-
+    public void bringUpCredits()
+    {
+	credMenu = new creditMenu();
+    }
     
     public void bringUpBasic() throws IOException {
 	mainMenu startMenu = new mainMenu();
@@ -88,13 +101,15 @@ public class menuController implements ActionListener {
 
 
     public void bringUpPlay() {
-	playMenu gameConfig = new playMenu();
+	gameConfig = new playMenu();
 	addToConfigButtonPanel();
-	gameConfig.add(p1Name);
-	gameConfig.add(p2Name);
-	gameConfig.add(tank1);
-	gameConfig.add(tank2);
-	gameConfig.add(configButtonPanel, BorderLayout.SOUTH);
+	gameConfig.jpTop.add(p1Name);
+	gameConfig.jpTop.add(p2Name);
+	gameConfig.jpTop.add(tank1);
+	gameConfig.jpTop.add(tank2);
+	gameConfig.jpBottom.add(configButtonPanel, BorderLayout.SOUTH);
+
+
     }
 
     public void bringUpEnviro() throws IOException {
@@ -110,7 +125,7 @@ public class menuController implements ActionListener {
     }
 
     public void bringUpGame() throws IOException {
-	gameScreen newGame = new gameScreen(p1Name.getText(), tank1.getTheColor(),
+	newGame = new gameScreen(p1Name.getText(), tank1.getTheColor(),
 					    p2Name.getText(), tank2.getTheColor());
     }
 
