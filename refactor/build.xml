@@ -12,7 +12,7 @@
   </target>
 
   <target name="run" depends="compile" description="run the Tanks game">
-    <java classname="Tanks" classpath="build" />
+    <java classname="Tanks" classpath="build" fork="true" />
   </target>
 
   <target name="clean" description="delete the build directory">
