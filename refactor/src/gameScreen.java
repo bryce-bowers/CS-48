@@ -144,7 +144,7 @@ class MyDrawPanel extends JPanel {
 				// the top part of the tank
 				d.fillOval((int)x - size,(int)y, 2 * size, 2 *size);
 				
-				
+				d.setColor( Color.BLACK );
 				d.drawString(name, (int)x - 7*(name.length() / 2), (int)(y + (size * 4))); 
 						
 			}
