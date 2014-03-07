@@ -3,68 +3,110 @@ import javax.swing.*;
 
 public class Player{
 
-	static int playerCount;
-	public String name;
-	private int playerNumber;
-	private int health;
-	private int fuel;
-	public Color color;
-	public double x, y;
-	public double degree = 90;
+    static int playerCount;
+    public String name;
+    private int playerNumber;
+    private int health;
+    private int fuel;
+    public Color color;
+    public double x, y;
+    public double degree = 90;
+    public int size = 10;
 	
-	public Player(String s, double newX, double newY, Color c){
-		name = s;
-		x = newX;
-		y = newY;
-		color = c;
-	}
+    public Player(String s, double newX, double newY, Color c){
+	name = s;
+	x = newX;
+	y = newY;
+	color = c;
+    }
 	
-	public double getX(){ return x; }
-	
-	public double getY(){ return y; }
-	
-	public double getDegree(){ return degree; }
-	
-	public void setX(double newX){
-		if(( newX >= (2 * gameScreen.size))  &&  (newX <= gameScreen.maxX -(3 * gameScreen.size)))
-			x = newX;
-	}
-	
-	public void setY(double newY){
-		//System.out.println("new y = 10 * Math.sin(.1 * x)   ==> " + 10 * Math.sin(.05 * x));
-		//y =  400 - 10 * Math.sin(.05 * x);
-	 	y = newY;
-	}
-	
-	public void setDegree(double newDeg){
-		if((newDeg <= 180) && (newDeg >= 0))
-			degree = newDeg;
-	}
+    public double getX(){ return x; }
+    public double getY(){ return y; }
 
-	public void goUp(){
-		setDegree( getDegree() + 2);
-		gameScreen.drawPanel.repaint();
+    public double getXChange()
+    { 
+	return x + ( 30 * Math.cos( Math.toRadians( getDegree() ) ) );
+    }
+    public double getYChange()
+    { 
+	return y - ( 30 * Math.sin( Math.toRadians( getDegree() ) ) ); 
+    }
+
+
+	
+    public double getDegree(){ return degree; }
+	
+    public void setX(double newX){
+	if(( newX >= (2 * gameScreen.size))  &&  (newX <= gameScreen.maxX -(3 * gameScreen.size)))
+	    x = newX;
+    }
+	
+    public void setY(double newY){
+	y = newY;
+    }
+	
+    public void setDegree(double newDeg){
+	if((newDeg <= 180) && (newDeg >= 0))
+	    degree = newDeg;
+    }
+
+    public void goUp(){
+	setDegree( getDegree() + 2);
+	gameScreen.drawPanel.repaint();
 		
     }
     
     public void goDown(){
-		setDegree( getDegree() - 2);
-		gameScreen.drawPanel.repaint();
+	setDegree( getDegree() - 2);
+	gameScreen.drawPanel.repaint();
     }
     
     public void goLeft(){
-		setX( getX() - 2);
-		gameScreen.drawPanel.repaint();
+	setX( getX() - 2);
+	gameScreen.drawPanel.repaint();
     }
     
     public void goRight(){
-		setX( getX() + 2);
-		gameScreen.drawPanel.repaint();
+	setX( getX() + 2);
+	gameScreen.drawPanel.repaint();
     }
     
- 
+    public void draw( Graphics g )
+    {
+	Graphics2D d = (Graphics2D) g;	
 
-
-
-
+	d.fillRect((int)x - (2 * size), (int)y + size + (size / 2),
+		   (4 * size),(size / 2));
+	d.fillRoundRect((int)x - (2 * size), (int)y + size, 
+			4 * size, size, 40, 40 );
+		
+	// the wheels of the tank
+	d.fillOval((int)x -(2 * size), (int)(y + (1.5 * size)), size, size);
+	d.fillOval((int)x - size, (int)(y + (1.5 * size)), size, size);
+	d.fillOval((int)x , (int)(y + (1.5 * size)), size, size);
+	d.fillOval((int)x + size, (int)(y + (1.5 * size)), size, size);
+		
+	//the line at the bottom
+	d.drawLine((int)(x - (1.5 * size)), (int)(y + (2.5 * size)),
+		   (int)(x + (1.5 * size)), (int)(y + (2.5 * size)));
+		
+	// the top part of the tank
+	d.fillOval((int)x - size,(int)y, 2 * size, 2 *size);
+		
+	d.setColor( Color.BLACK );
+	d.drawString(name, (int)x - 7*(name.length() / 2), 
+		     (int)(y + (size * 4)));
+	
+	// rotate the cannon to the correct angle
+	d.rotate( -1 * Math.toRadians( getDegree() ), getX(),
+		 getY() + (size / 5));
+	
+	// the cannon
+	d.fillRect( (int)getX(), (int)getY() + (size / 24),
+		    (3 * size), (size / 3));
+	
+	// unrotate the cannon to start angle
+	d.rotate( 1 * Math.toRadians( getDegree() ), getX(),
+		 getY() + (size / 5));
+    }
 }

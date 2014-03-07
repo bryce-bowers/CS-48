@@ -15,7 +15,7 @@ public class gameScreen implements ActionListener, KeyListener{
     private double velx = 0, vely = 0;              // start velx,  vely
     private Color myColor = Color.BLACK;            // myColor
     static int size = 10;             // size of image
-    static int turn = 2;
+    static boolean right = false;
      
     Player p1;
     Player p2;
@@ -38,50 +38,58 @@ public class gameScreen implements ActionListener, KeyListener{
     
     public void actionPerformed(ActionEvent ae){}
 
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e)
+    {
 	int code = e.getKeyCode();
 	if(code == KeyEvent.VK_SPACE){	// Space bar
-	    turn = 2;
+	    right = true;
 	}              
 	else if(code == KeyEvent.VK_ENTER){      // Enter key
-	    turn = 1;
+	    right = false;
 	}
 	
-	if(turn == 2)
+	if(right == true)
 	    {
 		
 		if(code == KeyEvent.VK_UP){         // UP arrow
-		    p1.goUp();
+		    p2.goUp();
 		}
 		else if(code == KeyEvent.VK_DOWN){       // DOWN arrow
-		    p1.goDown();
+		    p2.goDown();
 		}
 		else if(code == KeyEvent.VK_LEFT){       // LEFT arrow
-		    p1.goLeft();
+		    p2.goLeft();
 		}
 		else if(code == KeyEvent.VK_RIGHT){      // RIGHT arrow
-		    p1.goRight();
+		    p2.goRight();
 		}
 		else if(code == KeyEvent.VK_SHIFT){      // SHIFT key
-		    System.out.println("Stub, SHIFT");   
+		    System.out.println("Stub, SHIFT");
+		    System.out.println("Player 2 x,y = " + p2.getX() + ", " + p2.getY() );
+		    System.out.println("Player 2 new x,y = " + p2.getXChange() + ", "
+				       + p2.getYChange() );
+				    
 		}
 	    }
 	else 
 	    {
 		if(code == KeyEvent.VK_W){         // UP arrow
-		    p2.goUp();
+		    p1.goUp();
 		}
 		else if(code == KeyEvent.VK_S){       // DOWN arrow
-		    p2.goDown();
+		    p1.goDown();
 		}
 		else if(code == KeyEvent.VK_A){       // LEFT arrow
-		    p2.goLeft();
+		    p1.goLeft();
 		}
 		else if(code == KeyEvent.VK_D){      // RIGHT arrow
-		    p2.goRight();
+		    p1.goRight();
 		}
 		else if(code == KeyEvent.VK_SHIFT){      // SHIFT key
-		    System.out.println("Stub, SHIFT");   
+		    System.out.println("Stub, SHIFT");  
+		    System.out.println("Player 1 x,y = " + p1.getX() + ", " + p1.getY() );
+		    System.out.println("Player 1 new x,y = " + p1.getXChange() + ", "
+				       + p1.getYChange() );
 		}
 	    }
 	
@@ -91,91 +99,20 @@ public class gameScreen implements ActionListener, KeyListener{
   public void keyReleased(KeyEvent e) {}
 
 class MyDrawPanel extends JPanel {
+    
+    //Image img = Toolkit.getDefaultToolkit().createImage("background.jpg");
+    public void paintComponent(Graphics g) 
+    {
+	//paintComponent clears the screen
+	super.paintComponent(g);       // runs super class, then this class
+	
+	///////////////////////////////////////////////////
+	//g.drawImage(img, 0, 0, null);
+	///////////////////////////////////////////////////
 
-	Image img = Toolkit.getDefaultToolkit().createImage("background.jpg");
-	int drawCounter = 0;
-		public void paintComponent(Graphics g) {
-			//paintComponent draws things
-			super.paintComponent(g);       // runs super class, then this class
-			
-			///////////////////////////////////////////////////
-			g.drawImage(img, 0, 0, null);
-			///////////////////////////////////////////////////
-			
-			Graphics2D d = (Graphics2D) g;
-			double x = 0;
-			double y = 0;
-			String name = "";
-
-			for(int i = 1; i <= 2; i++)
-			{
-
-				if( i == 1)
-					{
-						x = p1.getX();
-						y = p1.getY();
-						d.setColor(p1.color);
-						name = p1.name;
-					}
-				else
-					{
-						x = p2.getX();
-						y = p2.getY();
-						d.setColor(p2.color);
-						name = p2.name;
-					}
-						
-				// middle of tank
-				d.fillRect((int)x - (2 * size), (int)y + size + (size / 2),
-					(4 * size),(size / 2));
-				d.fillRoundRect((int)x - (2 * size), (int)y + size, 
-						4 * size, size, 40, 40 );
-				
-				// the wheels of the tank
-				d.fillOval((int)x -(2 * size), (int)(y + (1.5 * size)), size, size);
-				d.fillOval((int)x - size, (int)(y + (1.5 * size)), size, size);
-				d.fillOval((int)x , (int)(y + (1.5 * size)), size, size);
-				d.fillOval((int)x + size, (int)(y + (1.5 * size)), size, size);
-				
-				//the line at the bottom
-				d.drawLine((int)(x - (1.5 * size)), (int)(y + (2.5 * size)),
-					   (int)(x + (1.5 * size)), (int)(y + (2.5 * size)));
-				
-				// the top part of the tank
-				d.fillOval((int)x - size,(int)y, 2 * size, 2 *size);
-				
-				d.setColor( Color.BLACK );
-				d.drawString(name, (int)x - 7*(name.length() / 2), (int)(y + (size * 4))); 
-						
-			}
-		
-			d.setColor(Color.BLACK);
-			if( turn == 2)
-				{
-					// Cannon of tank which rotates*****************
-					//d.fillRect((int)p2.getX(), (int)p2.getY() + (size / 24), (3 * size), (size / 3));
-					d.rotate(-1 * Math.toRadians(p1.getDegree()),p1.getX() ,p1.getY() + (size / 5));
-					d.fillRect((int)p1.getX(), (int)p1.getY() + (size / 24), (3 * size), (size / 3));
-					// *********************************************
-					d.rotate(1 * Math.toRadians(p1.getDegree()),p1.getX() ,p1.getY() + (size / 5));
-					
-					d.rotate(-1 * Math.toRadians(p2.getDegree()),p2.getX() ,p2.getY() + (size / 5));
-					d.fillRect((int)p2.getX(), (int)p2.getY() + (size / 24), (3 * size), (size / 3));		
-				}
-			else
-				{
-					// Cannon of tank which rotates*****************
-					//d.fillRect((int)p1.getX(), (int)p1.getY() + (size / 24), (3 * size), (size / 3));
-					d.rotate(-1 * Math.toRadians(p2.getDegree()),p2.getX() ,p2.getY() + (size / 5));
-					d.fillRect((int)p2.getX(), (int)p2.getY() + (size / 24), (3 * size), (size / 3));
-					// *********************************************
-					d.rotate(1 * Math.toRadians(p2.getDegree()),p2.getX() ,p2.getY() + (size / 5));
-					
-					d.rotate(-1 * Math.toRadians(p1.getDegree()),p1.getX() ,p1.getY() + (size / 5));
-					d.fillRect((int)p1.getX(), (int)p1.getY() + (size / 24), (3 * size), (size / 3));
-				}
-			
-		}
+	p1.draw( g );
+	p2.draw( g );
+    }
 }
 
    
