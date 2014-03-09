@@ -161,7 +161,7 @@ public class GameScreen implements KeyListener{
 	    g.drawString( "Fuel: " + p1.getFuel(), 50, 490);
 
 	    // redraws p2 stats
-	    g.drawString( "Player 2", 500, 460);
+	    g.drawString( ""+p1.getName(), 500, 460);
 	    g.drawString( "Health: " + p2.getHealth(), 500, 475);
 	    g.drawString( "Fuel: " + p2.getFuel(), 500, 490);
 	}
