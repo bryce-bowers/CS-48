@@ -16,16 +16,18 @@ public class GameScreen implements KeyListener{
     public final int startYCord = 400;
     private double velx = 0, vely = 0;             // start velx,  vely
     public Color backgroundColor = Color.BLACK;
+    public Image backImage;
     
     Player p1;
     Player p2;
 
     static MyDrawPanel drawPanel;
 
-    public GameScreen(String player1, Color p1c, String player2, Color p2c) throws IOException {
-	p1 = new Player(player1, 55, startYCord, p1c);
-	p2 = new Player(player2, 400, startYCord, p2c);
-
+    public GameScreen(String player1, Color p1c, 
+		      String player2, Color p2c, int cc) throws IOException {
+	p1 = new Player( player1, 55, startYCord, p1c );
+	p2 = new Player( player2, 400, startYCord, p2c );
+	selectBackgroundImage( cc );
 	JFrame jf = new JFrame("Test Tank Game");
 	drawPanel = new MyDrawPanel();
 	jf.getContentPane().add(drawPanel);
@@ -34,6 +36,21 @@ public class GameScreen implements KeyListener{
 	jf.addKeyListener(this);
 	jf.setFocusTraversalKeysEnabled(false);
        	jf.setVisible(true);
+    }
+    
+    public void selectBackgroundImage( int cc )
+    {
+	try{
+	    if( cc == 0 )
+		backImage = ImageIO.read(new File("./levSelResources/level_01.jpg"));
+	    else if( cc == 1 )
+		backImage = ImageIO.read(new File("./levSelResources/level_02.jpg"));
+	    else
+		backImage = ImageIO.read(new File("./levSelResources/bikini_bottom.jpg"));
+	}catch(IOException ioe){
+	    ioe.printStackTrace();
+	}
+
     }
     
     public void keyPressed(KeyEvent e)
@@ -111,15 +128,13 @@ public class GameScreen implements KeyListener{
     // Used to draw both the tanks on the screen
     // It has access to all the instances declared in the GameScreen class
     class MyDrawPanel extends JPanel {
-	
-	//Image img = Toolkit.getDefaultToolkit().createImage("background.jpg");
 	public void paintComponent(Graphics g) 
 	{
 	    // runs super class, which clears the screen
 	    super.paintComponent(g);
 	    
 	    ///////////////////////////////////////////////////
-	    //g.drawImage(img, 0, 0, null);
+	    g.drawImage(backImage, 0, 0, null);
 	    ///////////////////////////////////////////////////
 	    
 	    // sets the ground color depending on level

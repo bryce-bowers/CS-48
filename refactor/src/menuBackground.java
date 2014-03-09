@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class menuBackground extends JPanel {
-    private Image backgroundImage;
+    public Image backgroundImage;
 
     public menuBackground() {
 	super();
