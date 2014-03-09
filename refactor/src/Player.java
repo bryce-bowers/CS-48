@@ -48,13 +48,13 @@ public class Player{
 	    degree = newDeg;
     }
 
-    public void goUp(){
+    public void tiltLeft(){
 	setDegree( getDegree() + 2);
 	GameScreen.drawPanel.repaint();
 		
     }
     
-    public void goDown(){
+    public void tiltRight(){
 	setDegree( getDegree() - 2);
 	GameScreen.drawPanel.repaint();
     }
@@ -108,7 +108,7 @@ public class Player{
 		 getY() + (size / 5));
 
 	// sets the name under the tank to black
-	d.setColor( Color.BLACK );
+	d.setColor( Color.WHITE );
 
 	// centers the string under the tank
 	d.drawString(name, (int)x - 7*(name.length() / 2), 

@@ -12,7 +12,7 @@ public class MainMenu{
     JFrame jf;
     
     // Three buttons on main menu
-    public PlayMenu gameConfig;
+    public PlayMenu playMenu;
     public CreditMenu credMenu;
     public HowToPlayMenu htpMenu;
 
@@ -67,10 +67,10 @@ public class MainMenu{
     // Play Button action
     class PlayGameListener implements ActionListener{
 	public void actionPerformed( ActionEvent ae ){
-	    if( gameConfig == null )
-		gameConfig = new PlayMenu();
+	    if( playMenu == null )
+		playMenu = new PlayMenu();
 	    else
-		gameConfig.setToVisible();
+		playMenu.setToVisible();
 	}
     }
     
