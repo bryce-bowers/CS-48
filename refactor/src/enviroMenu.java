@@ -21,11 +21,19 @@ public class enviroMenu implements ActionListener{
     String cardNames[] = new String[3];
     String cardDescription[] = new String[3];
     int cardCounter = 0;
+    String tank1;
+    String tank2;
+    Color tankC1;
+    Color tankC2;
+    GameScreen newGame;
 
-    public enviroMenu() throws IOException{
+    public enviroMenu(String t1, Color tc1, String t2, Color tc2) throws IOException{
 	JFrame test = new JFrame();
         JPanel totalGUI = new JPanel();
-
+	tank1 = t1;
+	tank2 = t2;
+	tankC1 = tc1;
+	tankC2 = tc2;
         // We first create a JPanel to show the Buttons.
         // This is an ideal place to show how easy it is to set up a panel
         // of well spaced buttons using a BoxLayout.
@@ -70,27 +78,30 @@ public class enviroMenu implements ActionListener{
         // Shows the default alignment.
 	menuBackground align_1, align_2, align_3;
 	try {
-                align_1 = new menuBackground("back.jpg");
+                align_1 = new menuBackground("./levSelResources/level_01.jpg");
 		align_1.setLayout(new BoxLayout(align_1, BoxLayout.LINE_AXIS));
 	}catch(IOException e){
+	    System.out.println("ERROR");
 	    align_1 = new menuBackground();
 	}       
 	align_1.setLayout(new BoxLayout(align_1, BoxLayout.LINE_AXIS));
 	align_1.add(Box.createRigidArea(new Dimension(800,518)));
 
 	try {
-	     align_2 = new menuBackground("back.jpg");
+	     align_2 = new menuBackground("./levSelResources/level_02.jpg");
 	    align_2.setLayout(new BoxLayout(align_1, BoxLayout.LINE_AXIS));
 	}catch(IOException e){
+	    System.out.println("ERROR");
 	    align_2 = new menuBackground();
 	}  
 	align_2.setLayout(new BoxLayout(align_2, BoxLayout.LINE_AXIS));
 	align_2.add(Box.createRigidArea(new Dimension(5,5)));
 
 	try {
-	    align_3 = new menuBackground("back.jpg");
+	    align_3 = new menuBackground("./levSelResources/bikini_bottom.jpg");
 	align_3.setLayout(new BoxLayout(align_1, BoxLayout.LINE_AXIS));
 	}catch(IOException e){
+	    System.out.println("ERROR");
 	    align_3 = new menuBackground();
 	}  
 	align_3.setLayout(new BoxLayout(align_3, BoxLayout.LINE_AXIS));
@@ -146,7 +157,7 @@ public class enviroMenu implements ActionListener{
         totalGUI.add(bottomPanel);
         totalGUI.setOpaque(true);
 	test.add(totalGUI);
-	test.setSize(1920, 1080);
+	test.setSize(1366, 768);
 	test.setVisible(true);
     }
     
@@ -196,15 +207,19 @@ public class enviroMenu implements ActionListener{
         }
 	else if(e.getSource() == selectButton)
 	{
-	    bananas();
+	    try{
+		bringUpGame(cardCounter);
+	    }catch(IOException ioe){
+		ioe.printStackTrace();
+	    }
 	}
 
         titleLabel.setText(cardNames[cardCounter]);
         descLabel.setText(cardDescription[cardCounter]);
     }
 
-
-	public int bananas() {
-	    return cardCounter; 
-	}
+     public void bringUpGame(int cc) throws IOException
+    {
+	newGame = new GameScreen(tank1, tankC1, tank2, tankC2, cc);
+    }
 }

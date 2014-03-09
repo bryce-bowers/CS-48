@@ -57,7 +57,10 @@ public class PlayMenu{
     class StartGameListener implements ActionListener{
 	public void actionPerformed( ActionEvent ae ){
 	    try{
-		bringUpGame();
+	      	enviroMenu envMenu = new enviroMenu(p1Name.getText(), 
+						    tank1.getTheColor(),
+						    p2Name.getText(),
+						    tank2.getTheColor() );
 	    }catch( IOException ioe ){
 		ioe.printStackTrace();
 	    }
@@ -80,5 +83,6 @@ public class PlayMenu{
 	newGame = new GameScreen( p1Name.getText(), tank1.getTheColor(),
 				 p2Name.getText(), tank2.getTheColor() );
     }
-    
+
+
 }
