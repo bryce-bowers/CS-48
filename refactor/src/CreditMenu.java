@@ -2,8 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class creditMenu{
-    
+public class CreditMenu{
+    JFrame jf;
     public JPanel jpTop;
     public JPanel jpBottom;
     public JPanel jpNames;
@@ -18,11 +18,12 @@ public class creditMenu{
     public JLabel jlBryce = new JLabel("---  Bryce Bowers  ---", 
 				       JLabel.CENTER);
    
-    public creditMenu() {
-	JFrame jf = new JFrame("The Credits");
+    public CreditMenu() {
+	jf = new JFrame("The Credits");
     	
 	jpTop = new JPanel();
 	jpBottom = new JPanel();
+
 	jpNames = new JPanel();
 	jpTop.setLayout( new GridLayout( 3, 1 ) );
 	jpTop.add( new JLabel() );
@@ -35,11 +36,25 @@ public class creditMenu{
 	jpNames.add( jlBryce);
 	
 	jpTop.add(jpNames);
-	
+	JButton backToMain = new JButton( "Back To Main Menu" );
+	jpBottom.add( backToMain );
+	backToMain.addActionListener( new BackToMainListener() );
 	jf.add( jpTop );
 	jf.add( jpBottom, BorderLayout.SOUTH );
 
 	jf.setSize(700, 600);
-	jf.setVisible(true);
+	
+	setToVisible();
+    }
+
+    public void setToVisible()
+    {
+	jf.setVisible( true );
+    }
+    
+    class BackToMainListener implements ActionListener{
+	public void actionPerformed(ActionEvent e){
+	    jf.setVisible( false );
+	}
     }
 }

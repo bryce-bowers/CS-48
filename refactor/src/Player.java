@@ -31,8 +31,6 @@ public class Player{
     { 
 	return y - ( 30 * Math.sin( Math.toRadians( getDegree() ) ) ); 
     }
-
-
 	
     public double getDegree(){ return degree; }
 	
@@ -75,6 +73,10 @@ public class Player{
     {
 	Graphics2D d = (Graphics2D) g;	
 
+	// sets the color of the tank
+	d.setColor( color );
+
+	// top half of the tank
 	d.fillRect((int)x - (2 * size), (int)y + size + (size / 2),
 		   (4 * size),(size / 2));
 	d.fillRoundRect((int)x - (2 * size), (int)y + size, 
@@ -93,20 +95,23 @@ public class Player{
 	// the top part of the tank
 	d.fillOval((int)x - size,(int)y, 2 * size, 2 *size);
 		
-	d.setColor( Color.BLACK );
-	d.drawString(name, (int)x - 7*(name.length() / 2), 
-		     (int)(y + (size * 4)));
-	
 	// rotate the cannon to the correct angle
 	d.rotate( -1 * Math.toRadians( getDegree() ), getX(),
 		 getY() + (size / 5));
 	
-	// the cannon
+	// the cannon on top of the tank
 	d.fillRect( (int)getX(), (int)getY() + (size / 24),
 		    (3 * size), (size / 3));
 	
 	// unrotate the cannon to start angle
 	d.rotate( 1 * Math.toRadians( getDegree() ), getX(),
 		 getY() + (size / 5));
+
+	// sets the name under the tank to black
+	d.setColor( Color.BLACK );
+
+	// centers the string under the tank
+	d.drawString(name, (int)x - 7*(name.length() / 2), 
+		     (int)(y + (size * 4)));
     }
 }

@@ -112,6 +112,7 @@ class MyDrawPanel extends JPanel {
 
 	p1.draw( g );
 	p2.draw( g );
+	
     }
 }
 
