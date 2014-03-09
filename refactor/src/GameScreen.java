@@ -7,14 +7,14 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class gameScreen implements ActionListener, KeyListener{
+public class GameScreen implements ActionListener, KeyListener{
 
     private final double xGround = 0; double yGround = 600;
     private int tShift = 200;                 // amount shifted of frame
     static int maxX = 700, maxY = 600;             // max frame size x and y
     private double velx = 0, vely = 0;              // start velx,  vely
     private Color myColor = Color.BLACK;            // myColor
-    static int size = 10;             // size of image
+    //    static int size = 10;             // size of image
     static boolean right = false;
      
     Player p1;
@@ -22,7 +22,7 @@ public class gameScreen implements ActionListener, KeyListener{
 
     static MyDrawPanel drawPanel;
 
-    public gameScreen(String player1, Color p1c, String player2, Color p2c) throws IOException {
+    public GameScreen(String player1, Color p1c, String player2, Color p2c) throws IOException {
 	p1 = new Player(player1, 55, 400, p1c);
 	p2 = new Player(player2, 400, 400, p2c);
 

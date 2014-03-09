@@ -9,7 +9,7 @@ public class Tanks {
 	
 	public static void main(String[] args) throws IOException {
 	    int x;
-	    menuController masterCtrl = new menuController();
+	    MainMenu masterCtrl = new MainMenu();
 	}
 }
 

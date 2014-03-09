@@ -5,9 +5,10 @@ import java.io.*;
 
 
 
-public class playMenu{
+public class PlayMenu{
     JFrame jf;
-    gameScreen newGame;
+    
+    GameScreen newGame;
 
     public JPanel jpTop;
     public JPanel jpBottom;
@@ -19,7 +20,7 @@ public class playMenu{
     private JButton confirmBtn = new JButton( "Confirm!" );
     private JButton backToMain = new JButton( "Back To Main Menu" );
 
-    public playMenu() {
+    public PlayMenu() {
 	jf= new JFrame( "Forge your Character!" );
     	
 	jpTop = new JPanel();
@@ -76,7 +77,7 @@ public class playMenu{
     
     public void bringUpGame() throws IOException
     {
-	newGame = new gameScreen( p1Name.getText(), tank1.getTheColor(),
+	newGame = new GameScreen( p1Name.getText(), tank1.getTheColor(),
 				 p2Name.getText(), tank2.getTheColor() );
     }
     

@@ -8,15 +8,15 @@ import java.io.*;
 
 
 
-public class menuController{
+public class MainMenu{
     JFrame jf;
     
     // Three buttons on main menu
-    public playMenu gameConfig;
+    public PlayMenu gameConfig;
     public CreditMenu credMenu;
     public HowToPlayMenu htpMenu;
 
-    public menuController()
+    public MainMenu()
     {
 	jf = new JFrame("Tanks!");
 	setUpBackgroundImage( "mainPic.jpg" );
@@ -68,7 +68,7 @@ public class menuController{
     class PlayGameListener implements ActionListener{
 	public void actionPerformed( ActionEvent ae ){
 	    if( gameConfig == null )
-		gameConfig = new playMenu();
+		gameConfig = new PlayMenu();
 	    else
 		gameConfig.setToVisible();
 	}

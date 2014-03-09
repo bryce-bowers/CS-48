@@ -35,7 +35,7 @@ public class Player{
     public double getDegree(){ return degree; }
 	
     public void setX(double newX){
-	if(( newX >= (2 * gameScreen.size))  &&  (newX <= gameScreen.maxX -(3 * gameScreen.size)))
+	if(( newX >= (2 * size))  &&  (newX <= GameScreen.maxX -(3 * size)))
 	    x = newX;
     }
 	
@@ -50,23 +50,23 @@ public class Player{
 
     public void goUp(){
 	setDegree( getDegree() + 2);
-	gameScreen.drawPanel.repaint();
+	GameScreen.drawPanel.repaint();
 		
     }
     
     public void goDown(){
 	setDegree( getDegree() - 2);
-	gameScreen.drawPanel.repaint();
+	GameScreen.drawPanel.repaint();
     }
     
     public void goLeft(){
 	setX( getX() - 2);
-	gameScreen.drawPanel.repaint();
+	GameScreen.drawPanel.repaint();
     }
     
     public void goRight(){
 	setX( getX() + 2);
-	gameScreen.drawPanel.repaint();
+	GameScreen.drawPanel.repaint();
     }
     
     public void draw( Graphics g )
