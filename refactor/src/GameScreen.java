@@ -83,6 +83,7 @@ public class GameScreen implements KeyListener{
 	else if( code == KeyEvent.VK_S ){           // S,  tilt cannon right
 	    p1.tiltRight();
 	}
+
 	if( code == KeyEvent.VK_COMMA )
 	    {
 		p1.setVelocity( p1.getVelocity() - 1 );
@@ -91,6 +92,7 @@ public class GameScreen implements KeyListener{
 	    {
 		p1.setVelocity( p1.getVelocity() + 1 );
 	    }
+
 	if(p1.getFuel() > 0){
 	    if( code == KeyEvent.VK_A ){           // A,  move tank left
 		p1.goLeft();
@@ -117,6 +119,7 @@ public class GameScreen implements KeyListener{
 	else if( code == KeyEvent.VK_DOWN ){        // DOWN,  tilt cannon rigt
 	    p2.tiltRight();
 	}
+
 	if( code == KeyEvent.VK_COMMA )
 	    {
 		p2.setVelocity( p2.getVelocity() - 1 );
@@ -125,12 +128,12 @@ public class GameScreen implements KeyListener{
 	    {
 		p2.setVelocity( p2.getVelocity() + 1 );
 	    }
-	if(p2.getFuel() > 0){
-	    
-	    if( code == KeyEvent.VK_LEFT ){        // LEFT,  move cannon left
+
+	if(p2.getFuel() > 0){   
+	    if( code == KeyEvent.VK_LEFT ){         // LEFT,  move cannon left
 		p2.goLeft();
 	    }
-	    else if( code == KeyEvent.VK_RIGHT ){       // RIGHT, move cannon right
+	    else if( code == KeyEvent.VK_RIGHT ){   // RIGHT, move cannon right
 		p2.goRight();
 	    }
 	}
@@ -143,6 +146,8 @@ public class GameScreen implements KeyListener{
 	}
     }
     
+    // Sets all the variables for the projectile
+    /////////////////////////////////////////////////////////////////////
     public void shootProjectile( Player p )
     {
 	if( total != 0 )
@@ -154,20 +159,13 @@ public class GameScreen implements KeyListener{
 	right = !( right );                      // Switch to other players turn
 	shoot = true;
     }
-    
 
-    // Both of these methods are needed since KeyListener is implemented
-    //   KeyListener is an interface so it has 100% abstract methods
-    //   This means they are needed to be declared
-    public void keyTyped(KeyEvent e) {}
-    public void keyReleased(KeyEvent e) {}
-  
     public void checkBounds()
     {
 	if(( test.getTheX() > maxX ) || ( test.getTheY() > startYCord + 50 ))
 	    shoot = false;
-    }
-    
+    }    
+   
     // Inner Class
     // Used to draw both the tanks on the screen
     // It has access to all the instances declared in the GameScreen class
@@ -194,7 +192,7 @@ public class GameScreen implements KeyListener{
 	    
 	    // draws the ground as a big rectangle
 	    g.fillRect( 0, (int)( startYCord + p1.size * 2.5 ), 
-	    		maxX, (int)(maxY - startYCord - (p1.size * 6.5) ) );
+	    		maxX, (int)( maxY - startYCord));// - ( p1.size * 6.5 ) ) );
 
 	    // redraws both players when one of them moves
 	    p1.draw( g );                    // draws player 1
@@ -214,22 +212,32 @@ public class GameScreen implements KeyListener{
 		}
 	    checkBounds();
 	    mdp.repaint();
+	    
 
+	    // The Values displayed beneath the players
 	    g.setColor( Color.WHITE );
-	    // redraws p1 stats
-	    g.drawString( "" + p1.getName(), 50, 460);
-	    g.drawString( "Health: " + p1.getHealth(), 50, 475);
-	    g.drawString( "Cannon Degree: " + p1.getDegree(), 50, 490 );
-	    g.drawString( "Fuel: " + p1.getFuel(), 50, 505 );
-	    g.drawString( "Velocity " + p1.getVelocity(), 50, 520 );
+    
+	    // Player 1
+	    g.drawString( ""                + p1.getName(),    50, 460);
+	    g.drawString( "Health: "        + p1.getHealth(),  50, 475);
+	    g.drawString( "Cannon Degree: " + p1.getDegree(),  50, 490 );
+	    g.drawString( "Fuel: "          + p1.getFuel(),    50, 505 );
+	    g.drawString( "Velocity:"       + p1.getVelocity(),50, 520 );
 
-	    // redraws p2 stats
-	    g.drawString( ""+p2.getName(), 500, 460);
-	    g.drawString( "Health: " + p2.getHealth(), 500, 475);
-	    g.drawString( "Cannon Degree: " + p2.getDegree(), 500, 490 );
-	    g.drawString( "Fuel: " + p2.getFuel(), 500, 505 );
-	    g.drawString( "Velocity " + p2.getVelocity(), 500, 520 );
+	    // Player 2
+	    g.drawString( ""                + p2.getName(),     500, 460 );
+	    g.drawString( "Health: "        + p2.getHealth(),   500, 475 );
+	    g.drawString( "Cannon Degree: " + p2.getDegree(),   500, 490 );
+	    g.drawString( "Fuel: "          + p2.getFuel(),     500, 505 );
+	    g.drawString( "Velocity: "      + p2.getVelocity(), 500, 520 );
 	}
 	
     }	
+
+    
+    // Both of these methods are needed since KeyListener is implemented
+    //   KeyListener is an interface so it has 100% abstract methods
+    //   This means they are needed to be declared
+    public void keyTyped(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {}
 }

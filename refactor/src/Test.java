@@ -99,7 +99,7 @@ public class Test {
 
     public void draw( Graphics g )
     {
-	g.fillOval( getTheX(), getTheY(), 10, 10 );
+	g.fillOval( getTheX(), getTheY(), 5, 5 );
     }
 
 }
