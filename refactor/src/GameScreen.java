@@ -22,11 +22,13 @@ public class GameScreen implements KeyListener{
     Player p2;
     Test test;
     static double total = 0;
+    public boolean shoot = false;
     static MyDrawPanel mdp;
     
     public Graphics doublebufferG;
     public Image doublebufferImg;
     JFrame jf;
+    JPanel jp;
 
     public GameScreen(String player1, Color p1c, 
 		      String player2, Color p2c, int cc) throws IOException {
@@ -41,8 +43,7 @@ public class GameScreen implements KeyListener{
        	jf.setVisible(true);
 	mdp = new MyDrawPanel();
 	jf.add( mdp );
-	//test = new Test( 40, 400, 80, 70 );
-	test = new Test( 40,  420,  60,   60 );
+	test = new Test( 40,  startYCord,  60,   60 );
 	//t.go();
     }
     
@@ -83,19 +84,26 @@ public class GameScreen implements KeyListener{
 	else if( code == KeyEvent.VK_S ){           // S,  tilt cannon right
 	    p1.tiltRight();
 	}
-	else if( code == KeyEvent.VK_A ){           // A,  move tank left
-	    p1.goLeft();
-	}
-	else if( code == KeyEvent.VK_D ){           // D,  move tank right
-	    p1.goRight();
+	if(p1.getFuel() > 0){
+
+	    if( code == KeyEvent.VK_A ){           // A,  move tank left
+		p1.goLeft();
+	    }
+	    else if( code == KeyEvent.VK_D ){      // D,  move tank right
+		p1.goRight();
+	    }
+	    p1.burnFuel();
 	}
 
 	else if( code == KeyEvent.VK_SPACE ){       // Space bar
 	    //                                      // Shoot Projectile
-	    System.out.println( "p1 new (x,y) = " +
-				p1.getXChange() + ", " +
-				p1.getYChange() );
+	    test.setX( p1.getXChange() );
+	    test.setY( p1.getYChange() );
+	    //	    System.out.println( "p1 new (x,y) = " +
+	    //			p1.getXChange() + ", " +
+	    //p1.getYChange() );
 	    right = true;                           // Switch to p2's turn
+	    shoot = true;
 	    //shootProjectile();
 	}
     }
@@ -111,11 +119,15 @@ public class GameScreen implements KeyListener{
 	else if( code == KeyEvent.VK_DOWN ){        // DOWN,  tilt cannon right
 	    p2.tiltRight();
 	}
-	else if( code == KeyEvent.VK_LEFT ){        // LEFT,  move cannon left
-	    p2.goLeft();
-	}
-	else if( code == KeyEvent.VK_RIGHT ){       // RIGHT, move cannon right
-	    p2.goRight();
+	if(p2.getFuel() > 0){
+	    
+	    if( code == KeyEvent.VK_LEFT ){        // LEFT,  move cannon left
+		p2.goLeft();
+	    }
+	    else if( code == KeyEvent.VK_RIGHT ){       // RIGHT, move cannon right
+		p2.goRight();
+	    }
+	    p2.burnFuel();
 	}
 
 	else if(code == KeyEvent.VK_ENTER){         // Enter key
@@ -172,22 +184,43 @@ public class GameScreen implements KeyListener{
 	    p1.draw( g );                    // draws player 1
 	    p2.draw( g );                    // draws player 2
 	    g.setColor( Color.RED );
-	    //test.
-	    if( ( test.getTheX() > maxX ) || ( test.getTheY() > 410 ) )
+	    if( shoot == true )
+		{
+		    test.setNewX( total / 50 );
+		    test.setNewY( total / 50 );
+		    test.draw( g );
+		    mdp.repaint();
+		}
+
+	    else 
+		{
+		    System.out.println("False");
+		    mdp.repaint();
+		}
+		/*	    if( ( test.getTheX() > maxX ) || ( test.getTheY() > startYCord + 50 ) )
 		{ 
 		    total = 0;
-		    test.setX( 40 );
-		    test.setY( 410 );
+		    //test.setX( 400 );
+		    test.setY( startYCord );
 		    
 		}
 	    else
 		{
-		    total = total + .25;
+		    total = total + .5;
 		    test.setNewX( total / 50 );
 		    test.setNewY( total / 50 );
 		    test.draw( g );
-		}
-	    mdp.repaint();
+		    }*/
+	    //mdp.repaint();
+	    // redraws p1 stats
+	    g.drawString( ""+p1.getName(), 50, 460);
+	    g.drawString( "Health: " + p1.getHealth(), 50, 475);
+	    g.drawString( "Fuel: " + p1.getFuel(), 50, 490);
+
+	    // redraws p2 stats
+	    g.drawString( ""+p2.getName(), 500, 460);
+	    g.drawString( "Health: " + p2.getHealth(), 500, 475);
+	    g.drawString( "Fuel: " + p2.getFuel(), 500, 490);
 	}
 	
     }	

@@ -19,16 +19,18 @@ public class Player{
 	y = newY;
 	color = c;
     }
+	
+    public double getX(){ return x; }
+    public double getY(){ return y; }
 
+    public String getName() { return name; }
     public int getFuel() { return fuel; } // returns amount of fuel
     public void burnFuel() { fuel -= 1; } // subtracts fuel when tank moves
     public void setFuel(int amount) { fuel = amount; } // set fuel to a specific amount
 
     public int getHealth() { return health; }
     public void setHealth(int amount) { health = amount; }
-	
-    public double getX(){ return x; }
-    public double getY(){ return y; }
+
 
     public double getXChange()
     { 
