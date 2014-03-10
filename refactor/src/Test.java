@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Test extends Thread{
+public class Test {
     private double xCord, yCord;
     private final double velocity;
     private final double degrees;
@@ -9,7 +9,8 @@ public class Test extends Thread{
     private final double yStartCord;
     private final double xStartCord;
 
-
+    public Player p1 = new Player( "ben", 40, 400, Color.BLUE );
+    public Player p2 = new Player( "sarah", 600, 400, Color.BLACK );
 
     public Test(double x, double y, double v, double deg){
 	xStartCord = x;
@@ -33,24 +34,27 @@ public class Test extends Thread{
     public double getVelocity() { return velocity; }
 
 
-    public String toStringXY()
-    { return "(" + getTheX() + ", " + getTheY() + ")"; }
+    public String toStringXY(){
+	return "(" + getTheX() + ", " + getTheY() + ")"; 
+    }
     
-    public String toStringStartCord()
-    { return "xStart = " + getXStart() + ", yStart = " + getYStart() ; }
+    public String toStringStartCord(){
+	return "xStart = " + getXStart() + ", yStart = " + getYStart() ; 
+    }
 
-    public String toStringTimeInAir()
-    { return  "Traveled in air the air for a total of " + 
+    public String toStringTimeInAir(){
+	return  "Traveled in air the air for a total of " + 
 	    String.format( "%.2f", timeInAir() ) + " seconds"; 
     }
 
-    public String toStringXDistance()
-    { return "Traveled a total distance of " + 
+    public String toStringXDistance(){
+	return "Traveled a total distance of " + 
 	    (int)( getTheX() - getXStart() ) + " pixels" ; 
     }
     
-    public String toStringYMaxHeight()
-    { return "Traveled to a max height of " + (int)( maxHeight() ) + " pixels" ; } 
+    public String toStringYMaxHeight(){
+	return "Traveled to a max height of " + 
+	    (int)( maxHeight() ) + " pixels" ; } 
 
     public double maxHeight()
     {
@@ -98,7 +102,6 @@ public class Test extends Thread{
 		setNewX( t );
 		setNewY( t );
 		drawPanel.repaint();
-		
 		try{ 
 		    Thread.sleep( 50 );
 		}catch( InterruptedException ie ){
@@ -114,12 +117,19 @@ public class Test extends Thread{
 	System.out.println( toStringXDistance() );
 	System.out.println( toStringYMaxHeight() );
     }
-    
+    public void draw( Graphics g )
+    {
+	//g.fillOval( 50, 50, GameScreen.total, GameScreen.total );
+	
+	g.fillOval( getTheX(), getTheY(), 10, 10 );
+    }
     class PixelFly extends JPanel {
 	public void paintComponent( Graphics g )
 	{	    
 	    super.paintComponent(g);
 	    g.fillOval( getTheX(), getTheY(), 20, 20 );
+	    p1.draw( g );
+	    p2.draw( g );
 	}
     }
     
@@ -140,7 +150,7 @@ public class Test extends Thread{
 	Test t = new Test( 10,   530,   param1,   param2 );
 	t.go();
 	
-    }
+	}
 
 }
 

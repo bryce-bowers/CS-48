@@ -221,5 +221,7 @@ public class enviroMenu implements ActionListener{
      public void bringUpGame(int cc) throws IOException
     {
 	newGame = new GameScreen(tank1, tankC1, tank2, tankC2, cc);
+	//Thread t = new Thread( newGame );
+	//t.start();
     }
 }

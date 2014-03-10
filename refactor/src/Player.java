@@ -50,23 +50,23 @@ public class Player{
 
     public void tiltLeft(){
 	setDegree( getDegree() + 2);
-	GameScreen.drawPanel.repaint();
+	//GameScreen.drawPanel.repaint();
 		
     }
     
     public void tiltRight(){
 	setDegree( getDegree() - 2);
-	GameScreen.drawPanel.repaint();
+	//GameScreen.drawPanel.repaint();
     }
     
     public void goLeft(){
 	setX( getX() - 2);
-	GameScreen.drawPanel.repaint();
+	//GameScreen.drawPanel.repaint();
     }
     
     public void goRight(){
 	setX( getX() + 2);
-	GameScreen.drawPanel.repaint();
+	//GameScreen.drawPanel.repaint();
     }
     
     public void draw( Graphics g )

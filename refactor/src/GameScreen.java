@@ -17,25 +17,33 @@ public class GameScreen implements KeyListener{
     private double velx = 0, vely = 0;             // start velx,  vely
     public Color backgroundColor = Color.BLACK;
     public Image backImage;
-    
+ 
     Player p1;
     Player p2;
-
-    static MyDrawPanel drawPanel;
+    Test test;
+    static double total = 0;
+    static MyDrawPanel mdp;
+    
+    public Graphics doublebufferG;
+    public Image doublebufferImg;
+    JFrame jf;
 
     public GameScreen(String player1, Color p1c, 
 		      String player2, Color p2c, int cc) throws IOException {
 	p1 = new Player( player1, 55, startYCord, p1c );
 	p2 = new Player( player2, 400, startYCord, p2c );
 	selectBackgroundImage( cc );
-	JFrame jf = new JFrame("Test Tank Game");
-	drawPanel = new MyDrawPanel();
-	jf.getContentPane().add(drawPanel);
+	jf = new JFrame("Test Tank Game");
 	jf.setSize(maxX,maxY);
 	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	jf.addKeyListener(this);
 	jf.setFocusTraversalKeysEnabled(false);
        	jf.setVisible(true);
+	mdp = new MyDrawPanel();
+	jf.add( mdp );
+	//test = new Test( 40, 400, 80, 70 );
+	test = new Test( 40,  400,   60,   60 );
+	//t.go();
     }
     
     public void selectBackgroundImage( int cc )
@@ -88,9 +96,11 @@ public class GameScreen implements KeyListener{
 				p1.getXChange() + ", " +
 				p1.getYChange() );
 	    right = true;                           // Switch to p2's turn
+	    //shootProjectile();
 	}
     }
     
+   
     // Checks the code typed in with 
     //   the different Keyboard codes
     public void movePlayer2( int code )             // Button Pressed
@@ -123,32 +133,62 @@ public class GameScreen implements KeyListener{
     public void keyTyped(KeyEvent e) {}
     public void keyReleased(KeyEvent e) {}
 
+    public void setTime()
+    {
+	test.setNewX( total / 10 );
+	test.setNewY( total / 10 );
+
+    }
 
     // Inner Class
     // Used to draw both the tanks on the screen
     // It has access to all the instances declared in the GameScreen class
-    class MyDrawPanel extends JPanel {
-	public void paintComponent(Graphics g) 
+    class MyDrawPanel extends JPanel{
+	public void paint(Graphics g){
+	    doublebufferImg = jf.createImage( jf.getWidth(), jf.getHeight());
+	    doublebufferG = doublebufferImg.getGraphics();
+	    draw( doublebufferG );
+	    g.drawImage( doublebufferImg, 0, 0, jf );
+	}
+	
+	public void draw( Graphics g )
 	{
 	    // runs super class, which clears the screen
-	    super.paintComponent(g);
+	    //super.paintComponent(g);
 	    
 	    ///////////////////////////////////////////////////
 	    g.drawImage(backImage, 0, 0, null);
 	    ///////////////////////////////////////////////////
 	    
+	    
 	    // sets the ground color depending on level
 	    g.setColor( backgroundColor );
 	    
-	    // draws the ground as a big rectangle
+	// draws the ground as a big rectangle
 	    g.fillRect( 0, (int)( startYCord + p1.size * 2.5 ), 
 			maxX, (int)(maxY - startYCord - (p1.size * 6.5) ) );
 
 	    // redraws both players when one of them moves
 	    p1.draw( g );                    // draws player 1
 	    p2.draw( g );                    // draws player 2
-	    
+	    g.setColor( Color.RED );
+	    //test.
+	    if( ( test.getTheX() > maxX ) || ( test.getTheY() > 400 ) )
+		{ 
+		    total = 0;
+		    test.setX( 40 );
+		    test.setY( 400 );
+		    
+		}
+	    else
+		{
+		    total = total + .25;
+		    test.setNewX( total / 50 );
+		    test.setNewY( total / 50 );
+		    test.draw( g );
+		}
+	    mdp.repaint();
 	}
-    }
-    
+	
+    }	
 }

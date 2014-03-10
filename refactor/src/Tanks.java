@@ -8,8 +8,7 @@ import javax.sound.sampled.*;
 public class Tanks {
 	
 	public static void main(String[] args) throws IOException {
-	    int x;
-	    MainMenu masterCtrl = new MainMenu();
+	    MainMenu mm = new MainMenu();
 	}
 }
 
