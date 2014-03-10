@@ -9,21 +9,25 @@ import javax.imageio.ImageIO;
 
 public class GameScreen implements KeyListener{
 
-    static int maxX = 700, maxY = 600;             // max frame size x and y
-    // player on the right is player 2
-    public boolean right = false;                  // determines whose turn
+    static int maxX = 700;             // max frame x
+    static int maxY = 600;             // max frame y
 
-    public final int startYCord = 400;
-    private double velx = 0, vely = 0;             // start velx,  vely
-    public Color backgroundColor = Color.BLACK;
-    public Image backImage;
+    static final int startYCord = 450; // where to place the tanks
+    
+    // player on the right is player 2
+    public boolean rightTurn = false;        // determines whose turn
+
+    // determined by level select
+    public Color backgroundColor = Color.BLACK;    // color of the ground
+    public Image backImage;                        // image on background
  
-    Player p1;
-    Player p2;
-    Test test;
-    static double total = 0;
-    public boolean shoot = false;
-    static MyDrawPanel mdp;
+    Player p1   = null;                    // player 1
+    Player p2   = null;                    // player 2
+    Test test   = null;                    // used for firing cannon
+
+    static double time = 0;
+    public boolean inAir = false;
+    public MyDrawPanel mdp;
     
     public Graphics doublebufferG;
     public Image doublebufferImg;
@@ -33,18 +37,36 @@ public class GameScreen implements KeyListener{
     public GameScreen(String player1, Color p1c, 
 		      String player2, Color p2c, int cc) throws IOException {
 	p1 = new Player( player1, 55, startYCord, p1c );
-	p2 = new Player( player2, 400, startYCord, p2c );
+	p2 = new Player( player2, 640, startYCord, p2c );
+	setUpPlayerKeys();
+	setUpFrame();
+	test = new Test();
 	selectBackgroundImage( cc );
+
+    }
+
+    public void setUpFrame()
+    {
 	jf = new JFrame("Test Tank Game");
+
+	mdp = new MyDrawPanel();
+	jf.add( mdp );
+
 	jf.setSize(maxX,maxY);
  	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	jf.addKeyListener( this );
-	jf.setFocusTraversalKeysEnabled(false);
        	jf.setVisible(true);
-	mdp = new MyDrawPanel();
-	jf.add( mdp );
-	test = new Test( 40,  startYCord,  60,   60 );
-	//t.go();
+    }
+
+    public void setUpPlayerKeys()
+    {
+	p1.setCodes( KeyEvent.VK_W, KeyEvent.VK_S, 
+		     KeyEvent.VK_A, KeyEvent.VK_D, 
+		     KeyEvent.VK_SPACE );
+
+	p2.setCodes( KeyEvent.VK_UP,   KeyEvent.VK_DOWN, 
+		     KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, 
+		     KeyEvent.VK_ENTER );
     }
     
     public void selectBackgroundImage( int cc )
@@ -64,106 +86,47 @@ public class GameScreen implements KeyListener{
     public void keyPressed(KeyEvent e)
     {
 	// Turns keyPressed into an integer
-	int code = e.getKeyCode();         // Get the keyCode that was typed
+	int code = e.getKeyCode();       // Get the keyCode that was typed
+	boolean fire;
+	Player tmpP;
+	if( time != 0 )
+	    return;
+	if( rightTurn == true )                // Check if p2's turn
+	    tmpP = p2;
+	else 
+	    tmpP = p1;
 	
-	
-	if( right == true )                // Check if p2's turn
-	    movePlayer2( code );
-	else                               // Check if p1's turn
-	    movePlayer1( code );
-    }
-
-    // Checks the code typed in with 
-    //   the different Keyboard codes
-    public void movePlayer1( int code )             // Button Pressed
-    {
-	if( code == KeyEvent.VK_W ){                // W,  tilt cannon left
-	    p1.tiltLeft();
-	}
-	else if( code == KeyEvent.VK_S ){           // S,  tilt cannon right
-	    p1.tiltRight();
-	}
-
-	if( code == KeyEvent.VK_COMMA )
-	    {
-		p1.setVelocity( p1.getVelocity() - 1 );
-	    }
-	else if( code == KeyEvent.VK_PERIOD )
-	    {
-		p1.setVelocity( p1.getVelocity() + 1 );
-	    }
-
-	if(p1.getFuel() > 0){
-	    if( code == KeyEvent.VK_A ){           // A,  move tank left
-		p1.goLeft();
-	    }
-	    else if( code == KeyEvent.VK_D ){      // D,  move tank right
-		p1.goRight();
-	    }
-	}
-
-	if( code == KeyEvent.VK_SPACE ){       // Space bar
-	    //                                      // Shoot Projectile
-	    shootProjectile( p1 );
-	    //right = true;                           // Switch to p2's turn
-	}
+	fire = tmpP.checkCodes( code );
+	shootProjectile( tmpP, fire );
     }
    
-    // Checks the code typed in with 
-    //   the different Keyboard codes
-    public void movePlayer2( int code )             // Button Pressed
-    {
-	if( code == KeyEvent.VK_UP ){               // UP,    tilt cannon left
-	    p2.tiltLeft();
-	}
-	else if( code == KeyEvent.VK_DOWN ){        // DOWN,  tilt cannon rigt
-	    p2.tiltRight();
-	}
-
-	if( code == KeyEvent.VK_COMMA )
-	    {
-		p2.setVelocity( p2.getVelocity() - 1 );
-	    }
-	else if( code == KeyEvent.VK_PERIOD )
-	    {
-		p2.setVelocity( p2.getVelocity() + 1 );
-	    }
-
-	if(p2.getFuel() > 0){   
-	    if( code == KeyEvent.VK_LEFT ){         // LEFT,  move cannon left
-		p2.goLeft();
-	    }
-	    else if( code == KeyEvent.VK_RIGHT ){   // RIGHT, move cannon right
-		p2.goRight();
-	    }
-	}
-
-	if(code == KeyEvent.VK_ENTER){         // Enter key
-	    //                                      // Shoot Projectile
-	    shootProjectile( p2 );
-	    //right = false;                          // Switch to p1's turn
-
-	}
-    }
-    
     // Sets all the variables for the projectile
-    /////////////////////////////////////////////////////////////////////
-    public void shootProjectile( Player p )
+    public void shootProjectile( Player p, boolean fire )
     {
-	if( total != 0 )
+	if( inAir == true )
 	    return;
-	test.setXStart( p.getXChange() );
-	test.setYStart( p.getYChange() );
-	test.setDegrees( p.getDegree() );
+	if( fire != true )
+	    return;
+	
+	test.setXStart(   p.getXCannon()  );
+	test.setYStart(   p.getYCannon()  );
+	test.setDegrees(  p.getDegree()   );
 	test.setVelocity( p.getVelocity() );
-	right = !( right );                      // Switch to other players turn
-	shoot = true;
+	
+	rightTurn = !( rightTurn );          // Switch to other players turn
+	inAir = true;                        // Start cannon to shoot
     }
 
     public void checkBounds()
     {
-	if(( test.getTheX() > maxX ) || ( test.getTheY() > startYCord + 50 ))
-	    shoot = false;
+	if( test.getTheX() > maxX )
+	    inAir = false;
+	
+	else if( test.getTheY() > startYCord + 50 )
+	    inAir = false;
+	
+	//p1.checkHit();
+	//p2.checkHit();
     }    
    
     // Inner Class
@@ -180,10 +143,10 @@ public class GameScreen implements KeyListener{
 	public void draw( Graphics g )
 	{
 	    // runs super class, which clears the screen
-	    //super.paintComponent(g);
+	    // super.paintComponent(g);
 	    
 	    ///////////////////////////////////////////////////
-	    g.drawImage(backImage, 0, 0, null);
+	    g.drawImage( backImage, 0, 0, null );
 	    ///////////////////////////////////////////////////
 	    
 	    
@@ -192,46 +155,27 @@ public class GameScreen implements KeyListener{
 	    
 	    // draws the ground as a big rectangle
 	    g.fillRect( 0, (int)( startYCord + p1.size * 2.5 ), 
-	    		maxX, (int)( maxY - startYCord));// - ( p1.size * 6.5 ) ) );
+	    		maxX, (int)( maxY - startYCord));
 
 	    // redraws both players when one of them moves
-	    p1.draw( g );                    // draws player 1
-	    p2.draw( g );                    // draws player 2
+	    p1.draw( g, 50 );                    // draws player 1
+	    p2.draw( g, 500 );                   // draws player 2
 	    g.setColor( Color.RED );
 	  
-	    if( shoot == true )
+	    if( inAir == true )
 		{
-		    test.setNewX( total / 50 );
-		    test.setNewY( total / 50 );
+		    test.setNewX( time );
+		    test.setNewY( time );
 		    test.draw( g );
-		    total = total + .5;
+		    time = time + .01;
 		}
 	    else 
 		{
-		    total = 0;
+		    time = 0;
 		}
 	    checkBounds();
 	    mdp.repaint();
-	    
-
-	    // The Values displayed beneath the players
-	    g.setColor( Color.WHITE );
-    
-	    // Player 1
-	    g.drawString( ""                + p1.getName(),    50, 460);
-	    g.drawString( "Health: "        + p1.getHealth(),  50, 475);
-	    g.drawString( "Cannon Degree: " + p1.getDegree(),  50, 490 );
-	    g.drawString( "Fuel: "          + p1.getFuel(),    50, 505 );
-	    g.drawString( "Velocity:"       + p1.getVelocity(),50, 520 );
-
-	    // Player 2
-	    g.drawString( ""                + p2.getName(),     500, 460 );
-	    g.drawString( "Health: "        + p2.getHealth(),   500, 475 );
-	    g.drawString( "Cannon Degree: " + p2.getDegree(),   500, 490 );
-	    g.drawString( "Fuel: "          + p2.getFuel(),     500, 505 );
-	    g.drawString( "Velocity: "      + p2.getVelocity(), 500, 520 );
 	}
-	
     }	
 
     
