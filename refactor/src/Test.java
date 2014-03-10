@@ -3,16 +3,18 @@ import java.awt.*;
 
 public class Test {
     private double xCord, yCord;
-    private final double velocity;
-    private final double degrees;
+    private double velocity;
+    private double degrees;
 
-    private final double yStartCord;
-    private final double xStartCord;
+    private double yStartCord;
+    private double xStartCord;
 
-    public Player p1 = new Player( "ben", 40, 400, Color.BLUE );
-    public Player p2 = new Player( "sarah", 600, 400, Color.BLACK );
+    public Test( double x, double y )
+	{
+	    this( x, y, 0, 0 );
+	}
 
-    public Test(double x, double y, double v, double deg){
+    public Test( double x, double y, double v, double deg ){
 	xStartCord = x;
 	yStartCord = y;
 	xCord = x;
@@ -30,8 +32,16 @@ public class Test {
     public int getXStart() { return (int)xStartCord; }
     public int getYStart() { return (int)yStartCord; }
 
+    public void setXStart( double x ) { xStartCord = (int)x; }
+    public void setYStart( double y ) { yStartCord = (int)y; }
+
     public double getDegrees() { return degrees; }
+    public void setDegrees( double deg ) { degrees = deg; }
+
     public double getVelocity() { return velocity; }
+    public void setVelocity( double vel ) { velocity = vel; }
+
+
 
 
     public String toStringXY(){
@@ -70,15 +80,15 @@ public class Test {
 	return time;
     }
 
-    public void setNewX(double t)
+    public void setNewX( double t )
     {
 	double X;
-	X = xStartCord + ( getVelocity() * t *
+	X = getXStart() + ( getVelocity() * t *
 			   Math.cos( Math.toRadians( getDegrees() ) ) );
 	setX(X);
     }
 
-    public void setNewY(double t)
+    public void setNewY( double t )
     {
 	double Y;
 	Y = getYStart() - ( ( getVelocity() * t * 
@@ -86,71 +96,11 @@ public class Test {
 			    - ( 4.9 * t * t ));
 	setY(Y);
     }
-    
-    public void go()
-    {
-	PixelFly drawPanel = new PixelFly();
-	JFrame jf = new JFrame( "Test Pixel Move" );
-	jf.setSize( 900, 600 );
-	jf.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-	jf.setVisible( true );
-	jf.getContentPane().add(drawPanel);
 
-	System.out.println( toStringStartCord() );
-	for(double t = 0; t < timeInAir(); t = t + .25)
-	    {	
-		setNewX( t );
-		setNewY( t );
-		drawPanel.repaint();
-		try{ 
-		    Thread.sleep( 50 );
-		}catch( InterruptedException ie ){
-		    System.out.println( ie );
-		}
-	    }
-	setNewX( timeInAir() );
-	setNewY( timeInAir() );
-	drawPanel.repaint();
-	
-	System.out.println( toStringXY() );
-	System.out.println( toStringTimeInAir() );
-	System.out.println( toStringXDistance() );
-	System.out.println( toStringYMaxHeight() );
-    }
     public void draw( Graphics g )
     {
-	//g.fillOval( 50, 50, GameScreen.total, GameScreen.total );
-	
 	g.fillOval( getTheX(), getTheY(), 10, 10 );
     }
-    class PixelFly extends JPanel {
-	public void paintComponent( Graphics g )
-	{	    
-	    super.paintComponent(g);
-	    g.fillOval( getTheX(), getTheY(), 20, 20 );
-	    p1.draw( g );
-	    p2.draw( g );
-	}
-    }
-    
-    public static void main(String[] args)
-    {
-	double param2;
-	double param1;
-	if(args.length < 2)
-	    param2 = 45; // default angle
-	else 
-	    param2 = Double.parseDouble( args[1] );
-	if(args.length < 1)
-	    param1 = 80; // default velocity
-	else 
-	    param1 = Double.parseDouble( args[0] );
-
-	//               ( x,      y,      vel,    angle )
-	Test t = new Test( 10,   530,   param1,   param2 );
-	t.go();
-	
-	}
 
 }
 

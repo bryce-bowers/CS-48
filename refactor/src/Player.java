@@ -12,6 +12,7 @@ public class Player{
     public double x, y;
     public double degree = 90;
     public int size = 10;
+    private int velocity = 60;
 	
     public Player(String s, double newX, double newY, Color c){
 	name = s;
@@ -30,6 +31,13 @@ public class Player{
 
     public int getHealth() { return health; }
     public void setHealth(int amount) { health = amount; }
+
+    public int getVelocity() { return velocity; }
+    public void setVelocity( int v ) 
+    { 
+	if( ( v > 15 ) && ( v < 100 ) )
+	    velocity = v; 
+    }
 
 
     public double getXChange()
@@ -59,23 +67,20 @@ public class Player{
 
     public void tiltLeft(){
 	setDegree( getDegree() + 2);
-	//GameScreen.drawPanel.repaint();
-		
     }
     
     public void tiltRight(){
 	setDegree( getDegree() - 2);
-	//GameScreen.drawPanel.repaint();
     }
     
     public void goLeft(){
 	setX( getX() - 2);
-	//GameScreen.drawPanel.repaint();
+	burnFuel();
     }
     
     public void goRight(){
 	setX( getX() + 2);
-	//GameScreen.drawPanel.repaint();
+	burnFuel();
     }
     
     public void draw( Graphics g )
