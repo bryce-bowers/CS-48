@@ -80,8 +80,8 @@ public class PlayMenu{
     
     public void bringUpGame() throws IOException
     {
-	newGame = new GameScreen( p1Name.getText(), tank1.getTheColor(),
-				 p2Name.getText(), tank2.getTheColor() );
+	/*newGame = new GameScreen( p1Name.getText(), tank1.getTheColor(),
+				 p2Name.getText(), tank2.getTheColor() );*/
     }
 
 
