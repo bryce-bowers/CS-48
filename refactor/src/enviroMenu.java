@@ -26,9 +26,10 @@ public class enviroMenu implements ActionListener{
     Color tankC1;
     Color tankC2;
     GameScreen newGame;
+    JFrame test;
 
     public enviroMenu(String t1, Color tc1, String t2, Color tc2) throws IOException{
-	JFrame test = new JFrame();
+	test = new JFrame();
         JPanel totalGUI = new JPanel();
 	tank1 = t1;
 	tank2 = t2;
@@ -221,7 +222,6 @@ public class enviroMenu implements ActionListener{
      public void bringUpGame(int cc) throws IOException
     {
 	newGame = new GameScreen(tank1, tankC1, tank2, tankC2, cc);
-	//Thread t = new Thread( newGame );
-	//t.start();
+	test.dispose();
     }
 }

@@ -9,9 +9,9 @@ public class Test {
     private double yStartCord;
     private double xStartCord;
 
-    public Test( double x, double y )
+    public Test( )
 	{
-	    this( x, y, 0, 0 );
+	    this( 0, 0, 60, 0 );
 	}
 
     public Test( double x, double y, double v, double deg ){
