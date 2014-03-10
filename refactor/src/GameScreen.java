@@ -150,8 +150,8 @@ public class GameScreen implements KeyListener{
 	test.setXStart( p.getXChange() );
 	test.setYStart( p.getYChange() );
 	test.setDegrees( p.getDegree() );
+	test.setVelocity( p.getVelocity() );
 	right = !( right );                      // Switch to other players turn
-
 	shoot = true;
     }
     
