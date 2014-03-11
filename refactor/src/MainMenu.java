@@ -73,9 +73,13 @@ public class MainMenu{
     class PlayGameListener implements ActionListener{
 	public void actionPerformed( ActionEvent ae ){
 	    if( playMenu == null )
+		{
 		playMenu = new PlayMenu();
+		}
 	    else
+		{
 		playMenu.setToVisible();
+		}
 	}
     }
     

@@ -29,7 +29,7 @@ public class Player{
 
     //Sound Effects
     playMusic launchSound = new playMusic("./soundResources/tank_fire.wav");
- 
+
     // 2 arg constructor
     //           (  name  ,     x      ,      y     ,  color )
     public Player(String n, double newX, double newY, Color c){
@@ -133,9 +133,10 @@ public class Player{
     // Checks if player has chosen the shoot cannon
     public boolean checkFireCannonCode( int code )
     {
-	if( code == fireKey ){    
+	if( code == fireKey ){ 
 	    reFuel();
 	    launchSound.startMusic();
+	    launchSound.resetMusic();
 	    return true;
 	}
 	else

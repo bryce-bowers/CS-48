@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 public class GameScreen implements KeyListener{
 
     playMusic hitSound = new playMusic("./soundResources/tank_hit.wav");
-
     static int maxX = 700;             // max frame x
     static int maxY = 600;             // max frame y
 
@@ -123,13 +122,11 @@ public class GameScreen implements KeyListener{
     {
 	if( test.getTheX() > maxX )
 	    {
-	    inAir = false;
-	    //hitSound.startMusic();
+		inAir = false;
 	    }
 	else if( test.getTheY() > startYCord + 10 )
 	    {
-	    inAir = false;
-	    //hitSound.startMusic();
+		inAir = false;
 	    }
 	//p1.checkHit();
 	//p2.checkHit();
