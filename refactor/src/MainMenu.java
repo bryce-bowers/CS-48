@@ -10,22 +10,27 @@ import java.io.*;
 
 public class MainMenu{
     JFrame jf;
+
+    //Music for the background
+    playMusic BGM = new playMusic("./soundResources/tank_maintheme.wav");
     
     // Three buttons on main menu
     public PlayMenu playMenu;
     public CreditMenu credMenu;
     public HowToPlayMenu htpMenu;
 
+
     public MainMenu()
     {
 	jf = new JFrame("Tanks!");
-	setUpBackgroundImage( "mainPic.jpg" );
+	setUpBackgroundImage( "./levSelResources/mainPic.jpg" );
 	
 	addMainButtonPanel();
 
 	jf.setSize(541, 500);
 	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	jf.setVisible(true);
+	//BGM.startMusic();
     }
     
     // adds Tanks background

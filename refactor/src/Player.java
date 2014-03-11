@@ -25,6 +25,10 @@ public class Player{
     private int leftKey  = 0;
     private int rightKey = 0;
     private int fireKey  = 0;
+
+
+    //Sound Effects
+    playMusic launchSound = new playMusic("./soundResources/tank_fire.wav");
  
     // 2 arg constructor
     //           (  name  ,     x      ,      y     ,  color )
@@ -131,6 +135,7 @@ public class Player{
     {
 	if( code == fireKey ){    
 	    reFuel();
+	    launchSound.startMusic();
 	    return true;
 	}
 	else
