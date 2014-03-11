@@ -30,7 +30,7 @@ public class MainMenu{
 	jf.setSize(541, 500);
 	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	jf.setVisible(true);
-	//BGM.startMusic();
+	//	BGM.startMusic();
     }
     
     // adds Tanks background
@@ -73,9 +73,13 @@ public class MainMenu{
     class PlayGameListener implements ActionListener{
 	public void actionPerformed( ActionEvent ae ){
 	    if( playMenu == null )
+		{
 		playMenu = new PlayMenu();
+		}
 	    else
+		{
 		playMenu.setToVisible();
+		}
 	}
     }
     
