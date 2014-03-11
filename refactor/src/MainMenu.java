@@ -30,7 +30,7 @@ public class MainMenu{
 	jf.setSize(541, 500);
 	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	jf.setVisible(true);
-	//	BGM.startMusic();
+	BGM.startMusic();
     }
     
     // adds Tanks background
