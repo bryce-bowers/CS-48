@@ -9,6 +9,8 @@ public class Test {
     private double yStartCord;
     private double xStartCord;
 
+    public boolean isAirborne;
+
     public Test( )
 	{
 	    this( 0, 0, 60, 0 );
@@ -41,8 +43,19 @@ public class Test {
     public double getVelocity() { return velocity; }
     public void setVelocity( double vel ) { velocity = vel; }
 
-
-
+    /*    public void isInAir()
+    {
+	if( getTheY() <= getYStart() )
+	    {
+		if( isAirborne )
+		    {
+			System.out.println( "*" );
+		    }
+		isAirborne = false;
+	    }
+	
+	    
+	    }*/
 
     public String toStringXY(){
 	return "(" + getTheX() + ", " + getTheY() + ")"; 

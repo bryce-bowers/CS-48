@@ -96,7 +96,8 @@ public class GameScreen implements KeyListener{
 	    tmpP = p2;
 	else 
 	    tmpP = p1;
-	
+	p1.hit = false;
+	p2.hit = false;
 	fire = tmpP.checkCodes( code );
 	shootProjectile( tmpP, fire );
     }
@@ -116,20 +117,29 @@ public class GameScreen implements KeyListener{
 	
 	rightTurn = !( rightTurn );          // Switch to other players turn
 	inAir = true;                        // Start cannon to shoot
+	test.isAirborne = true;
     }
 
     public void checkBounds()
     {
-	if( test.getTheX() > maxX )
+	if( inAir )
 	    {
-		inAir = false;
+		if( test.getTheX() > maxX )
+		    {
+			test.setNewX( 50 );
+			inAir = false;
+		    }
+		if( test.getTheY() > startYCord + 10 )
+		    {
+			test.setNewY( 50 );
+			inAir = false;
+		    }
+		if( inAir == false )
+		    hitSound.startMusic();
 	    }
-	else if( test.getTheY() > startYCord + 10 )
-	    {
-		inAir = false;
-	    }
-	//p1.checkHit();
-	//p2.checkHit();
+	
+	p1.checkHit( test.getTheX(), test.getTheY() );
+	p2.checkHit( test.getTheX(), test.getTheY() );
     }    
    
     // Inner Class
@@ -176,6 +186,7 @@ public class GameScreen implements KeyListener{
 		{
 		    time = 0;
 		}
+	    //test.isInAir();
 	    checkBounds();
 	    mdp.repaint();
 	}

@@ -26,9 +26,11 @@ public class Player{
     private int rightKey = 0;
     private int fireKey  = 0;
 
+    public boolean hit  = false;
+
 
     //Sound Effects
-    playMusic launchSound = new playMusic("./soundResources/tank_fire.wav");
+    playMusic launchSound = null;
 
     // 2 arg constructor
     //           (  name  ,     x      ,      y     ,  color )
@@ -37,9 +39,24 @@ public class Player{
 	setX( newX );
 	setY( newY );
 	color = c;
+	launchSound = new playMusic("./soundResources/tank_fire.wav");
     }
 
-    //public void
+    public void checkHit( int projectileX, int projectileY )
+    {
+	if( hit == false )
+	    {
+		if( ( projectileX > ( x - 10 ) ) && ( projectileX < ( x + 10 ) ) )
+		    {
+			if( ( projectileY > y ) && ( projectileY < ( y + 15 ) ) )
+			    {
+				loseHealth();
+				hit = true;
+			    }
+			
+		    }
+	    }
+    }
 
     // degree
     // the angle of the cannon
@@ -53,15 +70,16 @@ public class Player{
     
     // fuel
     // used for how far the tank can travel
-    public int getFuel()             { return fuel; }
+    public int getFuel()          { return fuel; }
     public void reFuel()          { fuel += 5; }
-    public void burnFuel()           { fuel -= 1; } 
+    public void burnFuel()        { fuel -= 1; } 
 
 
     // health
     // each tank hit, the health decreases
     public int getHealth()           { return health; }
     public void setHealth( int h )   { health = h; }
+    public void loseHealth()         { health -= 1; }
 
 
     // name
@@ -123,20 +141,19 @@ public class Player{
     // Checks all the different types of buttons to adjust player
     public boolean checkCodes( int code )
     {
+	
 	checkHorizontalCode( code );
 	checkTiltCannonCode( code );
 	checkVelocityCode(   code );
-	
 	return ( checkFireCannonCode( code ) );
     }
 
     // Checks if player has chosen the shoot cannon
     public boolean checkFireCannonCode( int code )
     {
-	if( code == fireKey ){ 
+	if( code == fireKey ){
 	    reFuel();
 	    launchSound.startMusic();
-	    launchSound.resetMusic();
 	    return true;
 	}
 	else
