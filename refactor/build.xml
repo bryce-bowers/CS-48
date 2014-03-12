@@ -1,6 +1,14 @@
 <project default="compile">
 
   <!-- build.xml for Tanks -->
+
+  <property environment="env" /> <!-- load the environment variables -->
+  <property name="webRoot" value="${env.HOME}/public_html/cs48" />
+  <property name="webBaseURL" value="http://www.cs.ucsb.edu/~${env.USER}/cs48"/>
+  <property name="projectName" value="Tanks" />
+  <property name="javadocDest" value="${webRoot}/${projectName}/javadoc" />
+  <property name="javadocURL" value="${webBaseURL}/${projectName}/javadoc" />
+  
   
   <target name="compile" description="compile my code">
     <mkdir dir="build" />
@@ -17,6 +25,25 @@
 
   <target name="clean" description="delete the build directory">
     <delete dir="build" quiet="true"/>
+  </target>
+
+  <target name="javadoc" depends="compile">
+    <delete dir="javadoc" quiet="true" />
+    <javadoc destdir="javadoc" author="true" version="true" use="true" >
+      <fileset dir="." includes="**/*.java" />
+    </javadoc>
+
+    <!-- delete the old javadoc -->
+    <delete quiet="true" dir="${javadocDest}" />
+
+    <!-- copy everything to javadoc destination, make it readable -->
+    <copy todir="${javadocDest}" >
+      <fileset dir="javadoc" />
+    </copy>
+
+    <chmod dir="${javadocDest}" perm="755" type="dir" includes="**" />
+    <chmod dir="${javadocDest}" perm="755" type="dir" includes="**/*" />
+    <echo>Javadoc deployed to ${javadocURL}</echo>
   </target>
 
 </project> 

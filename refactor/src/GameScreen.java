@@ -24,7 +24,7 @@ public class GameScreen implements KeyListener{
  
     Player p1   = null;                    // player 1
     Player p2   = null;                    // player 2
-    Test test   = null;                    // used for firing cannon
+    Projectile proj   = null;                    // used for firing cannon
 
     static double time = 0;
     public boolean inAir = false;
@@ -41,7 +41,7 @@ public class GameScreen implements KeyListener{
 	p2 = new Player( player2, 640, startYCord, p2c );
 	setUpPlayerKeys();
 	setUpFrame();
-	test = new Test();
+	proj = new Projectile();
 	selectBackgroundImage( cc );
 
     }
@@ -109,10 +109,10 @@ public class GameScreen implements KeyListener{
 	if( fire != true )
 	    return;
 	
-	test.setXStart(   p.getXCannon()  );
-	test.setYStart(   p.getYCannon()  );
-	test.setDegrees(  p.getDegree()   );
-	test.setVelocity( p.getVelocity() );
+	proj.setXStart(   p.getXCannon()  );
+	proj.setYStart(   p.getYCannon()  );
+	proj.setDegrees(  p.getDegree()   );
+	proj.setVelocity( p.getVelocity() );
 	
 	rightTurn = !( rightTurn );          // Switch to other players turn
 	inAir = true;                        // Start cannon to shoot
@@ -120,11 +120,11 @@ public class GameScreen implements KeyListener{
 
     public void checkBounds()
     {
-	if( test.getTheX() > maxX )
+	if( proj.getTheX() > maxX )
 	    {
 		inAir = false;
 	    }
-	else if( test.getTheY() > startYCord + 10 )
+	else if( proj.getTheY() > startYCord + 10 )
 	    {
 		inAir = false;
 	    }
@@ -167,9 +167,9 @@ public class GameScreen implements KeyListener{
 	  
 	    if( inAir == true )
 		{
-		    test.setNewX( time );
-		    test.setNewY( time );
-		    test.draw( g );
+		    proj.setNewX( time );
+		    proj.setNewY( time );
+		    proj.draw( g );
 		    time = time + .01;
 		}
 	    else 
