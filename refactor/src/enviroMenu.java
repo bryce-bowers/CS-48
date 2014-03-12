@@ -13,6 +13,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/** enviroMenu is a class that lets the user select a map to play on
+    @author Benjamin Hartl
+    @author Nick Abrahan
+    @author Colin Biafore
+    @author Bryce Bowers
+    @version 1.0
+*/
+
 public class enviroMenu implements ActionListener{
     
     JButton firstButton, lastButton, nextButton, previousButton, selectButton;
@@ -27,6 +35,13 @@ public class enviroMenu implements ActionListener{
     Color tankC2;
     GameScreen newGame;
     JFrame test;
+
+    /** Constructor
+	@param t1 Player 1 name
+	@param tc1 Player 1 tank color
+	@param t2 Player 2 name
+	@param tc2 Player 2 tank color
+     */
 
     public enviroMenu(String t1, Color tc1, String t2, Color tc2) throws IOException{
 	test = new JFrame();
@@ -161,9 +176,12 @@ public class enviroMenu implements ActionListener{
 	test.setSize(1366, 768);
 	test.setVisible(true);
     }
+
+    /**
+       Changes the JPanel on the display holding varying map graphics,
+       and the title/description at the bottom of the screen
+     */
     
-    // The action performed changes the JPanel on display 
-    // and the title/description bar at the bottom.
     public void actionPerformed(ActionEvent e) {
         
         // We need to get the current layout of the CardLayout panel
@@ -218,6 +236,11 @@ public class enviroMenu implements ActionListener{
         titleLabel.setText(cardNames[cardCounter]);
         descLabel.setText(cardDescription[cardCounter]);
     }
+
+    /**
+       calls GameScreen which will start gameplay
+       @param cc Integer representation of the background to be passed to the game screen
+     */
 
      public void bringUpGame(int cc) throws IOException
     {

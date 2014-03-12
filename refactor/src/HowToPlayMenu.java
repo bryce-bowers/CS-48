@@ -2,6 +2,14 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+/** HowToPlayMenu is a class that opens a JFrame with text instructions on how to play Tanks
+    @author Benjamin Hartl
+    @author Nick Abrahan
+    @author Colin Biafore
+    @author Bryce Bowers
+    @version 1.0
+*/
+
 public class HowToPlayMenu{
     JFrame jf;
     public JPanel jpTop;
@@ -23,6 +31,9 @@ public class HowToPlayMenu{
     public JLabel jlFlow9 = new JLabel("and other Player's turn begins. If tanks's health reaches zero, then Player loses and game ends.", JLabel.CENTER);
     public JLabel jlLastly = new JLabel("If a Player's tanks's health reaches zero, then the Player loses and the game ends.", JLabel.CENTER);
     
+    /** Constructor
+	Creates a frame and panel with text instructing the user how to play the game 
+     */
     public HowToPlayMenu() {
 
 	JPanel jp = new JPanel();
@@ -64,6 +75,10 @@ public class HowToPlayMenu{
 	jf.setSize(700, 600);
 	setToVisible(); // displays Frame on screen
     }
+
+    /**
+       makes the frame visible
+     */
 
     public void setToVisible()
     {

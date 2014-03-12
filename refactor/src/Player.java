@@ -1,6 +1,15 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
+
+/** Player is a class that holds all information about a player's current status in the game
+    @author Benjamin Hartl
+    @author Nick Abrahan
+    @author Colin Biafore
+    @author Bryce Bowers
+    @version 1.0
+*/
+
 public class Player{
 
     // Pre Determined Variables
@@ -32,8 +41,13 @@ public class Player{
     //Sound Effects
     playMusic launchSound = null;
 
-    // 2 arg constructor
-    //           (  name  ,     x      ,      y     ,  color )
+    /** Constructor
+	@param n Player name
+	@param newX starting coordinate of player 
+	@param newY starting coordinate of player
+	@param c Color that player selected their tank to be
+    */
+
     public Player(String n, double newX, double newY, Color c){
 	name = n;
 	setX( newX );
@@ -41,6 +55,12 @@ public class Player{
 	color = c;
 	launchSound = new playMusic("./soundResources/tank_fire.wav");
     }
+
+    /**
+       checks whether the projectile hit the opposing tank
+       @param projectileX X coordinate of projectile
+       @param projectileY Y coordinate of projectile
+    */
 
     public void checkHit( int projectileX, int projectileY )
     {
@@ -58,37 +78,76 @@ public class Player{
 	    }
     }
 
-    // degree
-    // the angle of the cannon
+    /**
+       get degree of the tank cannon
+    */
+
     public int getDegree()        { return degree; }
-    // Checks to make sure you cannot aim down to the ground 
+
+    /**
+       Checks to make sure you cannot aim down to the ground
+       @param newDeg degree cannon should be set to
+    */
+
     public void setDegree( int newDeg ){
 	if((newDeg <= 180) && (newDeg >= 0))
 	    degree = newDeg;
     }
 
-    
-    // fuel
-    // used for how far the tank can travel
+    /**
+       gets players remaining fuel
+    */
+
     public int getFuel()          { return fuel; }
+
+    /**
+       refuels players tank with 5 units of fuel
+     */
+
     public void reFuel()          { fuel += 5; }
+
+    /**
+       burns fuel when player moves their tank 
+     */
+
     public void burnFuel()        { fuel -= 1; } 
 
+    /**
+       gets current health of the player
+     */
 
-    // health
-    // each tank hit, the health decreases
     public int getHealth()           { return health; }
+
+    /**
+       sets the health of the player
+       @param h number value of players health
+     */
+
     public void setHealth( int h )   { health = h; }
+
+    /**
+       decreases the players health by 1
+    */
+
     public void loseHealth()         { health -= 1; }
 
-
-    // name
+    /**
+       gets the name of the player
+     */
+ 
     public String getName()          { return name; }
 
+    /**
+       gets how fast the player wants to shoot a projectile
+     */
 
-    // velocity
-    // how much power each cannon shot has
     public int getVelocity()         { return velocity; }
+
+    /**
+       sets velocity and makes sure it's between 15 and 100
+       @param v value of the velocity
+     */
+
     public void setVelocity( int v ) {    // checks velocity 
 	if( v < 15 )                      //   less than 15
 	    return;
@@ -97,11 +156,17 @@ public class Player{
 	velocity = v;                     //   before setting it
     }
 
+    /**
+       gets the x coordinate of the center of the tank
+     */
 
-    // x
-    // location of the center of the tank
     public double getX()             { return x; }
-    // Checks to make sure the new x coordinates fit on the screen 
+
+    /**
+       Checks to make sure the new x coordinate fits on the screen
+       @param newX new X coordinate of the tank
+     */
+
     public void setX( double newX ){
 	if( newX < (2 * size) )
 	    return;
@@ -110,35 +175,60 @@ public class Player{
 	x = newX;
     }
 
-    // x coordinate at the end of the cannon
+    /**
+       x coordinate at the end of the cannon
+    */
+
     public double getXCannon(){ 
 	return x + ( 3 * size * Math.cos( Math.toRadians( getDegree() ) ) );
     }
 
-    
-    // y
-    // location to the top of the tank
+    /**
+       gets the y coordinate of the center of the tank
+     */
+
     public double getY()             { return y; }
+
+    /**
+       sets the new y coordinate of the center of the tank
+       @param newY new Y coordinate of the tank 
+     */
+
     public void setY(double newY)    { y = newY; }
-    // y coordinate at the end of the cannon
+
+    /**
+       y coordinate at the end of the cannon
+     */
+
     public double getYCannon(){ 
 	return y - ( 3 * size * Math.sin( Math.toRadians( getDegree() ) ) ); 
     }
 
+    /**
+       moves the tank horizontally to the left
+       as well lower the fuel
+    */
 
-    // moves the tank horizontally
-    //   as well lower the fuel
     public void goLeft(){
 	setX( getX() - 2);
 	burnFuel();
-    }    
+    } 
+
+    /**
+       moves the tank horizontally to the right
+       as well lower the fuel
+    */
+   
     public void goRight(){
 	setX( getX() + 2);
 	burnFuel();
     }
 
+    /**
+       Checks all the different types of buttons to adjust player
+       @param code value of key pressed 
+    */
 
-    // Checks all the different types of buttons to adjust player
     public boolean checkCodes( int code )
     {
 	
@@ -148,7 +238,11 @@ public class Player{
 	return ( checkFireCannonCode( code ) );
     }
 
-    // Checks if player has chosen the shoot cannon
+    /**
+       Checks if player has chosen the shoot cannon
+       @param code value of key pressed 
+    */
+
     public boolean checkFireCannonCode( int code )
     {
 	if( code == fireKey ){
@@ -159,8 +253,12 @@ public class Player{
 	else
 	    return false;
     }
-    
-    // Checks if player has moved the tank left or right
+
+    /**
+       Checks if player has moved the tank left or right
+       @param code value of key pressed 
+    */
+
     public void checkHorizontalCode( int code )
     {
 	if( code == upKey ){    
@@ -171,7 +269,11 @@ public class Player{
 	}
     }
 
-    // Checks if player has tilted the cannon of his tank
+    /**
+       Checks if player has tilted the cannon of the tank
+       @param code value of key pressed
+    */
+
     public void checkTiltCannonCode( int code )
     {
 	if( code == leftKey ){    
@@ -184,7 +286,11 @@ public class Player{
 	}
     }
 
-    // Checks if player has changed the velocity of his cannon
+    /**
+       Checks if player has changed the velocity of his cannon
+       @param code value of key pressed
+    */
+
     public void checkVelocityCode( int code )
     {
 	if( code == KeyEvent.VK_COMMA )
@@ -197,8 +303,10 @@ public class Player{
 	    }
     }
 
+    /**
+       Checks if player has enough fuel left to move
+    */
 
-    // Checks if the player has fuel left to move
     public boolean isEnoughFuel()
     {
 	if( fuel > 0 )
@@ -206,8 +314,16 @@ public class Player{
 	else
 	    return false;
     }
-
-    // sets each player to have their own buttons
+    
+    /**
+       sets key code values
+       @param up value of up key
+       @param down value of down key
+       @param left value of left key
+       @param right value of right key
+       @param fire value of fire key
+    */
+       
     public void setCodes( int up, int down, int left, int right, int fire )
     {
 	upKey    = up;
@@ -217,16 +333,27 @@ public class Player{
 	fireKey  = fire;
     }
 
-    // adjust cannons angle
+    /**
+       adjust cannons angle to the left
+    */
+
     public void tiltLeft(){
 	setDegree( getDegree() + 2);
     }
+
+    /**
+       adjust cannons angle to the right
+    */
+
     public void tiltRight(){
 	setDegree( getDegree() - 2);
     }
     
-  
-    // draws the tank
+    /**
+       draws the tank
+       @param shift amount game text should be shifted in the x direction
+    */
+
     public void draw( Graphics g, int shift )
     {
 	Graphics2D d = (Graphics2D) g;	

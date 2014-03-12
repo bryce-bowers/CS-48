@@ -1,6 +1,15 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+
+/** drawTank is a class that creates tanks in the Play Menu
+    @author Benjamin Hartl
+    @author Nick Abrahan
+    @author Colin Biafore
+    @author Bryce Bowers
+    @version 1.0
+*/
+
 public class drawTank extends JPanel implements ActionListener {
     private Color c;
     public int xCord = 100;
@@ -11,14 +20,34 @@ public class drawTank extends JPanel implements ActionListener {
     private JRadioButton green;
     private JRadioButton yellow;
     private JRadioButton red;
+
+    /**
+       Constructor creates a tank panel, sets the default color to black, 
+       and creates a button group for the JRadioButtons
+     */
 	
     public drawTank() {
 	setTheColor( Color.BLACK );
 	createButtonGroup();
     }
+    
+    /**
+       Gets the tank color
+     */
 
     public Color getTheColor() { return c; }
+
+    /**
+       Sets the tank color
+       @param cc Color of the tank
+     */
+
     public void setTheColor(Color cc) { c = cc; }
+
+    /**
+       creates a button group for the different color buttons
+       and adds the buttons to the group
+     */
 
     public void createButtonGroup()
     {
@@ -48,7 +77,11 @@ public class drawTank extends JPanel implements ActionListener {
 	this.add( green );
 	this.add( yellow );
 	this.add( red );
-}
+    }
+
+        /**
+	   Changes the color of the tank depending on which radio button is selected
+	 */
 	
     public void actionPerformed(ActionEvent e) {
 	if(e.getSource() == black) 
@@ -68,6 +101,10 @@ public class drawTank extends JPanel implements ActionListener {
 	
 	this.repaint();			
     }
+
+    /**
+       Draws the tank
+     */
 	
     public void paintComponent(Graphics t)
     {

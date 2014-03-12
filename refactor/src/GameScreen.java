@@ -7,6 +7,14 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+/** GameScreen is a class that controls all in-game sequences 
+    @author Benjamin Hartl
+    @author Nick Abrahan
+    @author Colin Biafore
+    @author Bryce Bowers
+    @version 1.0
+*/
+
 public class GameScreen implements KeyListener{
 
     playMusic hitSound = new playMusic("./soundResources/tank_hit.wav");
@@ -35,6 +43,14 @@ public class GameScreen implements KeyListener{
     JFrame jf;
     JPanel jp;
 
+    /** Constructor creates 2 players and loads information given in the play menu and enviroMenu, sets background image 
+	@param player1 Name of player 1
+	@param p1c Tank color for player 1
+	@param player2 Name of player 2
+	@param p2c Tank color for player 2
+	@param cc Integer that represents a background image
+     */
+
     public GameScreen(String player1, Color p1c, 
 		      String player2, Color p2c, int cc) throws IOException {
 	p1 = new Player( player1, 55, startYCord, p1c );
@@ -45,6 +61,10 @@ public class GameScreen implements KeyListener{
 	selectBackgroundImage( cc );
 
     }
+
+    /**
+       Creates the frame in which Tanks will be played
+    */
 
     public void setUpFrame()
     {
@@ -59,6 +79,12 @@ public class GameScreen implements KeyListener{
        	jf.setVisible(true);
     }
 
+    /**
+       assigns keys to player 1 and player 2
+       player 1 uses ASWD for movement and spacebar to fire, 
+       player 2 uses arrow keys for movement and the return key to fire 
+     */
+
     public void setUpPlayerKeys()
     {
 	p1.setCodes( KeyEvent.VK_W, KeyEvent.VK_S, 
@@ -69,6 +95,11 @@ public class GameScreen implements KeyListener{
 		     KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, 
 		     KeyEvent.VK_ENTER );
     }
+
+    /**
+       loads the background image into the game screen
+       @param cc integer representing the background selected in enviroMenu
+     */
     
     public void selectBackgroundImage( int cc )
     {
@@ -84,6 +115,11 @@ public class GameScreen implements KeyListener{
 	}
 
     }
+
+    /**
+       Checks whether it is player 1 or 2's turn
+     */
+
     public void keyPressed(KeyEvent e)
     {
 	// Turns keyPressed into an integer
@@ -102,7 +138,11 @@ public class GameScreen implements KeyListener{
 	shootProjectile( tmpP, fire );
     }
    
-    // Sets all the variables for the projectile
+    /** Sets all the variables for the projectile
+       @param p Player who's cannon is going to fire
+       @param fire Boolean to set state of the projectile
+     */    
+
     public void shootProjectile( Player p, boolean fire )
     {
 	if( inAir == true )
@@ -119,6 +159,10 @@ public class GameScreen implements KeyListener{
 	inAir = true;                        // Start cannon to shoot
 	shoot.isAirborne = true;
     }
+
+    /**
+       Checks whether the projectile is in the air or not 
+     */
 
     public void checkBounds()
     {

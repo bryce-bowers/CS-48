@@ -2,6 +2,14 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+/** CreditMenu is a class that opens a JFrame containing in text the names of the creators of Tanks
+    @author Benjamin Hartl
+    @author Nick Abrahan
+    @author Colin Biafore
+    @author Bryce Bowers
+    @version 1.0
+*/
+
 public class CreditMenu{
     JFrame jf;
     public JPanel jpTop;
@@ -18,6 +26,10 @@ public class CreditMenu{
     public JLabel jlBryce = new JLabel("---  Bryce Bowers  ---", 
 				       JLabel.CENTER);
    
+    /** Constructor
+       Creates JFrame and sets on-screen text
+     */
+       
     public CreditMenu() {
 	jf = new JFrame("The Credits");
     	
@@ -46,13 +58,19 @@ public class CreditMenu{
 	
 	setToVisible();
     }
+    
+    /**
+       Makes the frame visible
+     */
 
     public void setToVisible()
     {
 	jf.setVisible( true );
     }
+
     
     class BackToMainListener implements ActionListener{
+	
 	public void actionPerformed(ActionEvent e){
 	    jf.setVisible( false );
 	}

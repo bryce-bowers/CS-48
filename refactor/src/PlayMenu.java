@@ -3,7 +3,13 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
 
-
+/** PlayMenu is a class that allows users to name their tanks, and select a tank color
+    @author Benjamin Hartl
+    @author Nick Abrahan
+    @author Colin Biafore
+    @author Bryce Bowers
+    @version 1.0
+*/
 
 public class PlayMenu{
     JFrame jf;
@@ -19,6 +25,10 @@ public class PlayMenu{
     private JTextArea p2Name = new JTextArea( "" );
     private JButton confirmBtn = new JButton( "Confirm!" );
     private JButton backToMain = new JButton( "Back To Main Menu" );
+
+    /** Constructor
+	creates the menu to name a player and set tank color
+    */
 
     public PlayMenu() {
 	jf= new JFrame( "Forge your Character!" );
@@ -37,8 +47,11 @@ public class PlayMenu{
 
 	setToVisible();
     }
+
+    /**
+       Creates a panel with text fields and buttons to take user to next and previous menu
+    */
     
-    //Config Button Panel Creator
     private void addToConfigButtonPanel() {
 	
 	jpTop.add( p1Name );
@@ -72,17 +85,14 @@ public class PlayMenu{
 	    jf.setVisible( false );
 	}
     }
-	
+
+    /**
+       makes the play menu visible on the screen
+    */
+
     public void setToVisible()
     {
 	jf.setVisible( true );
     }
     
-    public void bringUpGame() throws IOException
-    {
-	/*newGame = new GameScreen( p1Name.getText(), tank1.getTheColor(),
-				 p2Name.getText(), tank2.getTheColor() );*/
-    }
-
-
 }
