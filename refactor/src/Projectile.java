@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Test {
+public class Projectile {
     private double xCord, yCord;
     private double velocity;
     private double degrees;
@@ -9,14 +9,12 @@ public class Test {
     private double yStartCord;
     private double xStartCord;
 
-    public boolean isAirborne;
-
-    public Test( )
+    public Projectile( )
 	{
 	    this( 0, 0, 60, 0 );
 	}
 
-    public Test( double x, double y, double v, double deg ){
+    public Projectile( double x, double y, double v, double deg ){
 	xStartCord = x;
 	yStartCord = y;
 	xCord = x;
@@ -42,6 +40,9 @@ public class Test {
 
     public double getVelocity() { return velocity; }
     public void setVelocity( double vel ) { velocity = vel; }
+
+
+
 
     public String toStringXY(){
 	return "(" + getTheX() + ", " + getTheY() + ")"; 

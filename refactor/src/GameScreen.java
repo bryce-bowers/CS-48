@@ -122,7 +122,15 @@ public class GameScreen implements KeyListener{
 
     public void checkBounds()
     {
+	//<<<<<<< HEAD
 	if( inAir )
+	    /*=======
+	if( proj.getTheX() > maxX )
+	    {
+		inAir = false;
+	    }
+	else if( proj.getTheY() > startYCord + 10 )
+	>>>>>>> d812e5871ff1eb9e34553f630bba257f7b3786e3*/
 	    {
 		if( test.getTheX() > maxX )
 		    {
