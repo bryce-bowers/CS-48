@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
-
+import java.io.IOException;
 /** Player is a class that holds all information about a player's current status in the game
     @author Benjamin Hartl
     @author Nick Abrahan
@@ -17,7 +17,7 @@ public class Player{
     private int degree   = 90;              // angle of cannon
     private int fuel     = 30;              // amount of fuel left
     private int health   = 3;               // how much health left 
-    private int velocity = 60;              // velocity of each shot
+    private int velocity = 16;              // velocity of each shot
     
     // Initialized by the constructor
     private Color  color = null;            // tank color
@@ -77,6 +77,10 @@ public class Player{
 		    }
 	    }
     }
+	
+	
+			
+
 
     /**
        get degree of the tank cannon

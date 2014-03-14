@@ -74,6 +74,7 @@ public class PlayMenu{
 						    tank1.getTheColor(),
 						    p2Name.getText(),
 						    tank2.getTheColor() );
+			jf.dispose();
 	    }catch( IOException ioe ){
 		ioe.printStackTrace();
 	    }

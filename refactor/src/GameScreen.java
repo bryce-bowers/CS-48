@@ -40,7 +40,7 @@ public class GameScreen implements KeyListener{
     
     public Graphics doublebufferG;
     public Image doublebufferImg;
-    JFrame jf;
+    static JFrame jf;
     JPanel jp;
 
     /** Constructor creates 2 players and loads information given in the play menu and enviroMenu, sets background image 
@@ -59,7 +59,6 @@ public class GameScreen implements KeyListener{
 	setUpFrame();
 	shoot = new Shoot();
 	selectBackgroundImage( cc );
-
     }
 
     /**
@@ -136,7 +135,18 @@ public class GameScreen implements KeyListener{
 	p2.hit = false;
 	fire = tmpP.checkCodes( code );
 	shootProjectile( tmpP, fire );
+	if(p1.getHealth() == 0)
+		lose(p1);
+	if(p2.getHealth() == 0)
+		lose(p2);
     }
+   
+   	public void lose(Player p) {
+		GameOverMenu gdoto = new GameOverMenu(p);
+		jf.dispose();
+	}
+	
+
    
     /** Sets all the variables for the projectile
        @param p Player who's cannon is going to fire
@@ -160,6 +170,10 @@ public class GameScreen implements KeyListener{
 	shoot.isAirborne = true;
     }
 
+	public static void shutMeDown(){
+		jf.dispose();
+	}
+	
     /**
        Checks whether the projectile is in the air or not 
      */

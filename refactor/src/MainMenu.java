@@ -75,10 +75,12 @@ public class MainMenu{
 	    if( playMenu == null )
 		{
 		playMenu = new PlayMenu();
+		jf.dispose();
 		}
 	    else
 		{
 		playMenu.setToVisible();
+		jf.dispose();
 		}
 	}
     }

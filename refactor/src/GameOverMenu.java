@@ -16,19 +16,22 @@ import java.io.*;
 
 public class GameOverMenu{
     JFrame jf;
-    
+    String name;
     // Two buttons on game over menu
     public PlayMenu playMenu;
 
 
-    public GameOverMenu()
+    public GameOverMenu(Player p)
     {
 	jf = new JFrame("Game Over!");
 	setUpBackgroundImage( "./levSelResources/game_over02.jpg" );
-	
 	addMainButtonPanel();
 
-	jf.setSize(1080, 1920);
+	name = p.getName();
+
+	jf.setSize(600, 600);
+	
+	
 	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	jf.setVisible(true);
     }
@@ -50,18 +53,23 @@ public class GameOverMenu{
 
 	// play button
 	JButton playBtn = new JButton( "Play Again!" );
+	JButton quitBtn = new JButton( "Close!" );
+	JLabel loserNameBtn = new JLabel(name + " LOSES!");
 	mainButtonPanel.add(playBtn);
+	mainButtonPanel.add(loserNameBtn);
+	mainButtonPanel.add(quitBtn);
 	playBtn.setFocusable( false );
 	playBtn.addActionListener( new PlayAgainListener() );
-/*	
+	quitBtn.addActionListener( new QuitListener() );
+
 	// how to play button
-	JButton quitBtn = new JButton( "Back to Main Menu" );
+/*	JButton quitBtn = new JButton( "Back to Main Menu" );
 	mainButtonPanel.add(htpBtn);
 	htpBtn.setFocusable( false );
 	htpBtn.addActionListener( new BackToMainListener() );
-
-	jf.add( mainButtonPanel, BorderLayout.SOUTH );
 */
+	jf.add( mainButtonPanel, BorderLayout.SOUTH );
+
     }
 
  
@@ -69,11 +77,24 @@ public class GameOverMenu{
     class PlayAgainListener implements ActionListener{
 	public void actionPerformed( ActionEvent ae ){
 		if( playMenu == null )
+			{
 		    playMenu = new PlayMenu();
+			jf.dispose();
+			}
 		else
+			{
 			playMenu.setToVisible();
+			jf.dispose();
+			}
 	}
     }
+	
+	//Quit Action
+	class QuitListener implements ActionListener{
+	public void actionPerformed ( ActionEvent ae){
+		System.exit(0);
+		}
+	}
 /*    
     // BackToMainMenuListener Button action
     class BackToMainMenuListener implements ActionListener{
