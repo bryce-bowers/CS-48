@@ -116,7 +116,8 @@ public class GameScreen implements KeyListener{
     }
 
     /**
-       Checks whether it is player 1 or 2's turn
+	Checks whether it is player 1 or 2's turn
+	@param e KeyEvent representing user's key press
      */
 
     public void keyPressed(KeyEvent e)
@@ -141,10 +142,14 @@ public class GameScreen implements KeyListener{
 		lose(p2);
     }
    
-   	public void lose(Player p) {
-		GameOverMenu gdoto = new GameOverMenu(p);
-		jf.dispose();
-	}
+    /**
+	Calls Game Over screen when one Player's health reaches zero
+	@param p Player who won
+    */
+   public void lose(Player p) {
+	GameOverMenu gdoto = new GameOverMenu(p);
+	jf.dispose();
+   }
 	
 
    
@@ -170,6 +175,9 @@ public class GameScreen implements KeyListener{
 	shoot.isAirborne = true;
     }
 
+    /**
+	Closes Game Screen
+    */
 	public static void shutMeDown(){
 		jf.dispose();
 	}
