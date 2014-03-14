@@ -27,9 +27,7 @@ public class GameOverMenu{
     {
 	jf = new JFrame("Game Over!");
 	setUpBackgroundImage( "./levSelResources/game_over02.jpg" );
-	addMainButtonPanel();
-
-	name = p.getName();
+	addMainButtonPanel(p);
 
 	jf.setSize(600, 600);
 	
@@ -54,9 +52,11 @@ public class GameOverMenu{
     /**
 	Puts two buttons on the game over menu: play again and back to main menu
     */
-    private void addMainButtonPanel() {
+    private void addMainButtonPanel(Player pl) {
 
 	JPanel mainButtonPanel = new JPanel();
+	
+	name = pl.getName();
 
 	// play button
 	JButton playBtn = new JButton( "Play Again!" );
