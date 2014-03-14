@@ -31,13 +31,7 @@ If you're player 2: Use WASD to move, and space bar to fire and swtich to player
 
 --------------------------------
 KNOWN BUGS:
---Firing doesn't work, Return key/Space bar only switch turns right now.
---Stage select screen not implemented yet, gonna be with final project.
---Background doesn't show up
---Creating new windows doesn't close previous one, if you keep switching between play and main menu, you'll have an infinite number of windows
---Credits/HTP menu still empty, buttons have no actions
---Background Music function working, but not in this iteration.
---No graphics whatsoever except for the tank. Aesthetics last on our list, functionality first
+
 
 FEATURES:
 --Functional GUI from beginning to playScreen.
