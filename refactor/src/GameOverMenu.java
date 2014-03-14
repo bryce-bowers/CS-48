@@ -20,7 +20,9 @@ public class GameOverMenu{
     // Two buttons on game over menu
     public PlayMenu playMenu;
 
-
+    /** constructor
+	@param p Winning Player's name
+    */
     public GameOverMenu(Player p)
     {
 	jf = new JFrame("Game Over!");
@@ -36,7 +38,10 @@ public class GameOverMenu{
 	jf.setVisible(true);
     }
     
-    // adds Tanks background
+    /**
+	Retrieves background image to be displayed on panel
+    */
+
     public void setUpBackgroundImage( String file )
     {
 	try{
@@ -46,7 +51,9 @@ public class GameOverMenu{
 	}
     }
     
-    // The two buttons on the game over menu: play again and back to main menu
+    /**
+	Puts two buttons on the game over menu: play again and back to main menu
+    */
     private void addMainButtonPanel() {
 
 	JPanel mainButtonPanel = new JPanel();
@@ -62,12 +69,6 @@ public class GameOverMenu{
 	playBtn.addActionListener( new PlayAgainListener() );
 	quitBtn.addActionListener( new QuitListener() );
 
-	// how to play button
-/*	JButton quitBtn = new JButton( "Back to Main Menu" );
-	mainButtonPanel.add(htpBtn);
-	htpBtn.setFocusable( false );
-	htpBtn.addActionListener( new BackToMainListener() );
-*/
 	jf.add( mainButtonPanel, BorderLayout.SOUTH );
 
     }
@@ -75,6 +76,11 @@ public class GameOverMenu{
  
     // Play Button action
     class PlayAgainListener implements ActionListener{
+
+    /**
+	Called when Play Again! button is pressed
+	Calls playMenu so the player can play again
+    */
 	public void actionPerformed( ActionEvent ae ){
 		if( playMenu == null )
 			{
@@ -90,19 +96,16 @@ public class GameOverMenu{
     }
 	
 	//Quit Action
-	class QuitListener implements ActionListener{
+     class QuitListener implements ActionListener{
+
+    /**
+	Called when Close! button is pressed
+	Terminates program
+    */
 	public void actionPerformed ( ActionEvent ae){
 		System.exit(0);
-		}
 	}
-/*    
-    // BackToMainMenuListener Button action
-    class BackToMainMenuListener implements ActionListener{
-	public void actionPerformed( ActionEvent ae ){
-	    	jf.setVisible(false);
-	}
-    }
-*/
+     }
 }
 
 
