@@ -22,9 +22,9 @@ To View How To Play:
 press "How To Play"
 
 
-The game is a 2 player turn based action game.
-The players trade off turns to fire cannon at other player.
-Each Player has 3 lives, each time hit decrements it by 1.
+This is a 2 player turn based action game.
+The players trade turns firing cannons at each other.
+Each Player has 3 lives, and each hit results in the player's health decrementing by 1.
 
 Player 1: (on the left)
 "w" "s" -- tilt cannon left and right.
